@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/home.dart';
+import 'package:untitled/pages/loginPage.dart';
 import 'package:untitled/pages/onboarding.dart';
 
 void main() {
@@ -23,7 +25,12 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: Onboarding(),
+      routes: {
+        '/': (context) => const Onboarding(),
+        '/home': (context) => const Home(),
+        '/login': (context) => const Loginpage(),
+      },
+      initialRoute: '/',
     );
   }
 }
