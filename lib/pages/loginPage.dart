@@ -47,8 +47,8 @@ class _LoginpageState extends State<Loginpage> {
                     width: 350,
                     child: TextFormField(
                       decoration: Textfield1(
-                        hintText: 'Username or Email',
-                        prefixIcon: Icons.person,
+                        hintText: 'Pawtastic Email',
+                        prefixIcon: Icons.email_rounded,
                       ).decoration,
                       keyboardType: TextInputType.emailAddress,
                     ),

@@ -51,8 +51,8 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     width: 350,
                     child: TextFormField(
                       decoration: Textfield1(
-                        hintText: 'Enter your email address',
-                        prefixIcon: Icons.email_rounded,
+                        hintText: 'Enter registered email address',
+                        prefixIcon: Icons.mail_lock_rounded,
                       ).decoration,
                       keyboardType: TextInputType.emailAddress,
                     ),

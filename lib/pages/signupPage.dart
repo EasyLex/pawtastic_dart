@@ -12,7 +12,9 @@ class Signuppage extends StatefulWidget {
 
 class _SignuppageState extends State<Signuppage> {
   bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class _SignuppageState extends State<Signuppage> {
                         hintText: 'Username',
                         prefixIcon: Icons.person,
                       ).decoration,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.name,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -70,7 +72,6 @@ class _SignuppageState extends State<Signuppage> {
                   // Password TextField
                   Container(
                     width: 350,
-                    height: 55,
                     child: TextFormField(
                       controller: _passwordController,
                       obscureText: !_isPasswordVisible, // If false, password is visible
@@ -97,22 +98,21 @@ class _SignuppageState extends State<Signuppage> {
                   // Confirm Password TextField
                   Container(
                     width: 350,
-                    height: 55,
                     child: TextFormField(
-                      controller: _passwordController,
-                      obscureText: !_isPasswordVisible, // If false, password is visible
+                      controller: _confirmPasswordController,
+                      obscureText: !_isConfirmPasswordVisible, // If false, password is visible
                       decoration: Textfield1(
                         hintText: 'Confirm Password',
                         prefixIcon: Icons.lock,
                       ).decoration.copyWith(
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                            _isConfirmPasswordVisible ? Icons.visibility_off : Icons.visibility,
                             color: Colors.grey,
                           ),
                           onPressed: () {
                             setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
+                              _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
                             });
                           },
                         ),
