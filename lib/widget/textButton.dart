@@ -42,19 +42,36 @@ class _TextbuttonNavigationState extends State<TextbuttonNavigation> {
     // Modify text color's opacity by adjusting the alpha channel
     Color textColorWithOpacity = widget.textStyle.color?.withOpacity(_opacity) ?? Colors.black;
 
-    return TextButton(
-      onPressed: _handlePress,
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.zero,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        splashFactory: NoSplash.splashFactory,
-        foregroundColor: Colors.transparent,
-        overlayColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-      ),
-      child: Text(
-        widget.text, // Display the text passed to the button
-        style: widget.textStyle.copyWith(color: textColorWithOpacity), // Use modified color
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          _opacity = 0.5; // When the tap starts, reduce opacity
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          _opacity = 1.0; // When the tap ends, restore opacity
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          _opacity = 1.0; // If the tap is canceled, restore opacity
+        });
+      },
+      child: TextButton(
+        onPressed: _handlePress,
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          splashFactory: NoSplash.splashFactory,
+          foregroundColor: Colors.transparent,
+          overlayColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+        ),
+        child: Text(
+          widget.text, // Display the text passed to the button
+          style: widget.textStyle.copyWith(color: textColorWithOpacity), // Use modified color
+        ),
       ),
     );
   }
