@@ -56,7 +56,7 @@ class _OnboardingState extends State<Onboarding> {
             // Get Started Button
             TextbuttonNavigation(
               text: 'Get Started',
-              route: '/register',
+              route: '/signup',
               textStyle: TextStyle(
                 color: Colors.orange,
                 fontSize: 18.0,

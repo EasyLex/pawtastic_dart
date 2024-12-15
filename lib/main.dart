@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/forgotPassword.dart';
 import 'package:untitled/pages/home.dart';
 import 'package:untitled/pages/loginPage.dart';
 import 'package:untitled/pages/onboarding.dart';
+import 'package:untitled/pages/signupPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Onboarding(),
         '/home': (context) => const Home(),
         '/login': (context) => const Loginpage(),
+        '/signup': (context) => const Signuppage(),
+        '/forgot-password': (context) => const Forgotpassword(),
       },
       initialRoute: '/',
     );
