@@ -89,7 +89,7 @@ class _LoginpageState extends State<Loginpage> {
                         route: '/forgot-password',
                         textStyle: TextStyle(
                           fontFamily: 'Montserrat',
-                          color: Color.fromRGBO(252, 147, 3, 1.0), // Color for "Create an Account"
+                          color: Color.fromRGBO(252, 147, 3, 1.0), 
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
                         )
@@ -110,7 +110,7 @@ class _LoginpageState extends State<Loginpage> {
                         ), 
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                        Navigator.pushNamed(context, '/test');
                       },
                       child: const Text(
                           "Login",
@@ -144,7 +144,7 @@ class _LoginpageState extends State<Loginpage> {
                             route: '/signup',
                             textStyle: TextStyle(
                               fontFamily: 'Montserrat',
-                              color: Color.fromRGBO(252, 147, 3, 1.0), // Color for "Create an Account"
+                              color: Color.fromRGBO(252, 147, 3, 1.0), 
                               fontSize: 15.0,
                               fontWeight: FontWeight.w500,
                             ),

@@ -193,7 +193,7 @@ class _SignuppageState extends State<Signuppage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                        Navigator.pushNamed(context, '/welcome');
                       },
                       child: const Text(
                         "Create Account",

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/forgotPassword.dart';
+import 'package:untitled/pages/starting/forgotPassword.dart';
 import 'package:untitled/pages/home.dart';
-import 'package:untitled/pages/loginPage.dart';
-import 'package:untitled/pages/onboarding.dart';
-import 'package:untitled/pages/signupPage.dart';
+import 'package:untitled/pages/starting/loginPage.dart';
+import 'package:untitled/pages/starting/onboarding.dart';
+import 'package:untitled/pages/starting/signupPage.dart';
+import 'package:untitled/pages/starting-animation.dart';
+import 'package:untitled/pages/test-page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Poppins', // membuat font Poppins untuk keseluruhan file
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 93, 0, 255)),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 16.0),
           displayLarge: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => const Onboarding(),
+        '/test': (context) => TestPage(),
+        '/': (context) => const StartingAnimation(),
+        '/welcome': (context) => const Onboarding(),
         '/home': (context) => const Home(),
         '/login': (context) => const Loginpage(),
         '/signup': (context) => const Signuppage(),
