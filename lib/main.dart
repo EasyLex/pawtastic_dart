@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/bottomBar.dart';
+import 'package:untitled/pages/cart.dart';
+import 'package:untitled/pages/myOrders.dart';
+import 'package:untitled/pages/search.dart';
+import 'package:untitled/pages/settings.dart';
 import 'package:untitled/pages/starting/forgotPassword.dart';
 import 'package:untitled/pages/home.dart';
 import 'package:untitled/pages/starting/loginPage.dart';
@@ -33,10 +38,14 @@ class MyApp extends StatelessWidget {
         '/test': (context) => TestPage(),
         '/': (context) => const StartingAnimation(),
         '/welcome': (context) => const Onboarding(),
-        '/home': (context) => const Home(),
         '/login': (context) => const Loginpage(),
         '/signup': (context) => const Signuppage(),
         '/forgot-password': (context) => const Forgotpassword(),
+        '/home': (context) => toHomePage(),
+        '/cart': (context) => toCartPage(),
+        '/my-orders': (context) => toMyOrdersPage(),
+        '/settings': (context) => toSettingsPage(),
+        '/search': (context) => toSearchPage(),
       },
       initialRoute: '/',
     );

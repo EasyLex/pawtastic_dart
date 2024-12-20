@@ -15,15 +15,15 @@ class _ForgotpasswordState extends State<Forgotpassword> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 250, 250),
         elevation: 0, // Removes shadow under the AppBar
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios),
+        //   onPressed: () {
+        //     Navigator.pop(context); // Go back to the previous screen
+        //   },
+        // ),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
-      body: SafeArea(  // Membuat agar tidak tabrakan dengan status/notification bar
+      body: SafeArea(  
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
