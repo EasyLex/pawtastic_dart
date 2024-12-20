@@ -4,7 +4,7 @@ import 'package:untitled/pages/home.dart';
 import 'package:untitled/pages/myOrders.dart';
 import 'package:untitled/pages/search.dart';
 import 'package:untitled/pages/settings.dart';
-import 'package:untitled/widget/topquartercircleborder.dart';
+import 'package:untitled/widget/tophalfcircleborder.dart';
 
 class Bottombar extends StatefulWidget {
   final int initialIndex;  // Add a parameter for initial index
@@ -67,7 +67,7 @@ class _BottombarState extends State<Bottombar> {
                       backgroundColor: currentIndex == 4 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.white,
                       child: Icon(Icons.search_rounded),
                       elevation: 0.1,
-                      shape: TopQuarterCircleBorder(strokeWidth: 1.5, outlineColor: Color.fromRGBO(252, 147, 3, 1.0)), // Use custom ,
+                      shape: TopHalfCircleBorder(strokeWidth: 1.5, outlineColor: Color.fromRGBO(252, 147, 3, 1.0)), // Use custom ,
                       // shape: CircleBorder(
                       //   side: BorderSide(
                       //     color: Color.fromRGBO(252, 147, 3, 1.0), // Set the border color

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class TopQuarterCircleBorder extends ShapeBorder {
+class TopHalfCircleBorder extends ShapeBorder {
   final double strokeWidth;
   final Color outlineColor;
 
-  const TopQuarterCircleBorder({
+  const TopHalfCircleBorder({
     this.strokeWidth = 2.0,
     this.outlineColor = Colors.orange,
   });
@@ -48,14 +48,14 @@ class TopQuarterCircleBorder extends ShapeBorder {
 
   @override
   ShapeBorder scale(double t) {
-    return TopQuarterCircleBorder(
+    return TopHalfCircleBorder(
       strokeWidth: strokeWidth * t,
       outlineColor: outlineColor,
     );
   }
 
-  @override
-  bool shouldRepaint(ShapeBorder oldDelegate) {
-    return false; // No need to repaint unless the shape changes
-  }
+  // @override
+  // bool shouldRepaint(ShapeBorder oldDelegate) {
+  //   return false; // No need to repaint unless the shape changes
+  // }
 }
