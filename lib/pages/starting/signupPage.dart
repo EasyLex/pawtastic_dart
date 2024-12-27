@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/widget/textButton.dart';
 import 'package:untitled/widget/textField1.dart';
-import 'package:untitled/firebase CRUD/createUser.dart'; // Updated to import the correct file
+import 'package:untitled/firebaseCRUD/createUser.dart'; 
 
 class Signuppage extends StatefulWidget {
   const Signuppage({super.key});

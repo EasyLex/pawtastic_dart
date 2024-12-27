@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/Orders/detailOrders.dart';
 import 'package:untitled/pages/cart.dart';
-import 'package:untitled/pages/myOrders.dart';
+import 'package:untitled/pages/Orders/myOrders.dart';
 import 'package:untitled/pages/search.dart';
 import 'package:untitled/pages/settings.dart';
 import 'package:untitled/pages/starting/forgotPassword.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => toHomePage(),
         '/cart': (context) => toCartPage(),
         '/my-orders': (context) => toMyOrdersPage(),
+        // '/detail-orders': (context) => Detailorders(),
         '/settings': (context) => toSettingsPage(),
         '/search': (context) => toSearchPage(),
       },

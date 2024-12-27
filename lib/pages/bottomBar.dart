@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/pages/cart.dart';
 import 'package:untitled/pages/home.dart';
-import 'package:untitled/pages/myOrders.dart';
+import 'package:untitled/pages/Orders/myOrders.dart';
 import 'package:untitled/pages/search.dart';
 import 'package:untitled/pages/settings.dart';
 import 'package:untitled/widget/tophalfcircleborder.dart';
@@ -67,13 +67,13 @@ class _BottombarState extends State<Bottombar> {
                       backgroundColor: currentIndex == 4 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.white,
                       child: Icon(Icons.search_rounded),
                       elevation: 0.1,
-                      shape: TopHalfCircleBorder(strokeWidth: 1.5, outlineColor: Color.fromRGBO(252, 147, 3, 1.0)), // Use custom ,
-                      // shape: CircleBorder(
-                      //   side: BorderSide(
-                      //     color: Color.fromRGBO(252, 147, 3, 1.0), // Set the border color
-                      //     width: 1.0, // Set the border width
-                      //   ),
-                      // ),
+                      // shape: TopHalfCircleBorder(strokeWidth: 1.5, outlineColor: Color.fromRGBO(252, 147, 3, 1.0)), // Use custom ,
+                      shape: CircleBorder(
+                        side: BorderSide(
+                          color: Color.fromRGBO(252, 147, 3, 1.0), // Set the border color
+                          width: 2.0, // Set the border width
+                        ),
+                      ),
                       onPressed: () {
                         setBottomBarIndex(4);
                       },
@@ -92,7 +92,7 @@ class _BottombarState extends State<Bottombar> {
                             IconButton(
                               icon: Icon(
                                 Icons.home,
-                                color: currentIndex == 0 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 0 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                               ),
                               onPressed: () {
                                 setBottomBarIndex(0);
@@ -102,7 +102,7 @@ class _BottombarState extends State<Bottombar> {
                             Text(
                               'Home',
                               style: TextStyle(
-                                color: currentIndex == 0 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 0 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                                 fontSize: 12,
                               ),
                             ),
@@ -115,7 +115,7 @@ class _BottombarState extends State<Bottombar> {
                             IconButton(
                               icon: Icon(
                                 Icons.shopping_cart,
-                                color: currentIndex == 1 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 1 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                               ),
                               onPressed: () {
                                 setBottomBarIndex(1);
@@ -124,7 +124,7 @@ class _BottombarState extends State<Bottombar> {
                             Text(
                               'Cart',
                               style: TextStyle(
-                                color: currentIndex == 1 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 1 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                                 fontSize: 12,
                               ),
                             ),
@@ -141,7 +141,7 @@ class _BottombarState extends State<Bottombar> {
                             IconButton(
                               icon: Icon(
                                 Icons.shopping_bag_rounded,
-                                color: currentIndex == 2 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 2 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                               ),
                               onPressed: () {
                                 setBottomBarIndex(2);
@@ -150,7 +150,7 @@ class _BottombarState extends State<Bottombar> {
                             Text(
                               'My Orders',
                               style: TextStyle(
-                                color: currentIndex == 2 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 2 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                                 fontSize: 12,
                               ),
                             ),
@@ -163,7 +163,7 @@ class _BottombarState extends State<Bottombar> {
                             IconButton(
                               icon: Icon(
                                 Icons.settings,
-                                color: currentIndex == 3 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 3 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                               ),
                               onPressed: () {
                                 setBottomBarIndex(3);
@@ -172,7 +172,7 @@ class _BottombarState extends State<Bottombar> {
                             Text(
                               'Settings',
                               style: TextStyle(
-                                color: currentIndex == 3 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.grey.shade700,
+                                color: currentIndex == 3 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.black,
                                 fontSize: 12,
                               ),
                             ),
@@ -201,7 +201,7 @@ class BNBCustomPainter extends CustomPainter {
     Paint outlinePaint = Paint()
       ..color = Color.fromRGBO(252, 147, 3, 1.0) // Outline color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1; // Outline width
+      ..strokeWidth = 1.5; // Outline width
 
     Path path = Path();
     path.moveTo(0.2, 0); // Start
