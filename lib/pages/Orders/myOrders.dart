@@ -11,6 +11,7 @@ class MyOrders extends StatefulWidget {
 // Order Model
 class Order {
   final String orderId;
+  final String shop;
   final String shippingAddress;
   final int totalPrice;
   final String orderDate;
@@ -21,6 +22,7 @@ class Order {
 
   Order({
     required this.orderId,
+    required this.shop,
     required this.shippingAddress,
     required this.totalPrice,
     required this.orderDate,
@@ -38,6 +40,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
   final List<Order> orders = [
     Order(
       orderId: '1947034',
+      shop: 'Vidibi Pet Shop',
       shippingAddress: 'Blimbing, Kota Malang',
       totalPrice: 40000,
       orderDate: '05-11-2024',
@@ -48,6 +51,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947035',
+      shop: 'Rumah hewan',
       shippingAddress: 'Jalan Raya, Kota Malang',
       totalPrice: 50000,
       orderDate: '06-11-2024',
@@ -58,6 +62,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947036',
+      shop: 'Pakan hewan Malang',
       shippingAddress: 'Jalan Merdeka, Kota Malang',
       totalPrice: 30000,
       orderDate: '07-11-2024',
@@ -68,6 +73,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947037',
+      shop: 'Vidibi Pet Shop',
       shippingAddress: 'Jalan Candi, Kota Malang',
       totalPrice: 25000,
       orderDate: '08-11-2024',
@@ -78,6 +84,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947038',
+      shop: 'Koneko Pet Shop',
       shippingAddress: 'Jalan Batu, Kota Malang',
       totalPrice: 45000,
       orderDate: '09-11-2024',
@@ -88,6 +95,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947039',
+      shop: 'Perlengkapan Hewan Singosari',
       shippingAddress: 'Jalan Indah, Kota Malang',
       totalPrice: 35000,
       orderDate: '10-11-2024',
@@ -98,6 +106,7 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
     ),
     Order(
       orderId: '1947040',
+      shop: 'Patzy Pet Shop',
       shippingAddress: 'Jalan Merdeka, Kota Malang',
       totalPrice: 30000,
       orderDate: '07-11-2024',
@@ -271,14 +280,14 @@ class CompletedOrders extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 8.0),
+                         // nama toko
+                          Text(
+                            "From: ${order.shop}",  // sementara belum dinamis
+                            style: TextStyle(fontSize: 14.0),
+                          ),
                           // alamat
                           Text(
                             "Shipping Address: ${order.shippingAddress}",
-                            style: TextStyle(fontSize: 14.0),
-                          ),
-                          // total stok
-                          const Text(
-                            "Quantity: 3",  // sementara belum dinamis
                             style: TextStyle(fontSize: 14.0),
                           ),
                           const SizedBox(height: 8.0),
@@ -406,11 +415,11 @@ class ProcessingOrders extends StatelessWidget {
                           ),
                           const SizedBox(height: 8.0),
                           Text(
-                            "Shipping Address: ${order.shippingAddress}",
+                            "From: ${order.shop}",
                             style: TextStyle(fontSize: 14.0),
                           ),
-                          const Text(
-                            "Quantity: 3",
+                          Text(
+                            "Shipping Address: ${order.shippingAddress}",
                             style: TextStyle(fontSize: 14.0),
                           ),
                           const SizedBox(height: 8.0),
@@ -535,12 +544,13 @@ class CancelledOrders extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 8.0),
+                          // nama toko
                           Text(
-                            "Shipping Address: ${order.shippingAddress}",
+                            "From: ${order.shop}",  // sementara belum dinamis
                             style: TextStyle(fontSize: 14.0),
                           ),
-                          const Text(
-                            "Quantity: 3",
+                          Text(
+                            "Shipping Address: ${order.shippingAddress}",
                             style: TextStyle(fontSize: 14.0),
                           ),
                           const SizedBox(height: 8.0),
