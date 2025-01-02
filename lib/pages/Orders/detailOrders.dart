@@ -14,7 +14,7 @@ class Detailorders extends StatefulWidget {
 class _DetailordersState extends State<Detailorders> {
   late Order order;  // Declare the order variable here
 
-  // Data list produk sementara (sama setiap id)
+  // Data list produk sementara (masih sama setiap order id)
   final List<Map<String, dynamic>> products = [
     {
       'name': 'Makanan Hamster Jolly Multivitamin Hamster Food 400 gr',
