@@ -32,6 +32,7 @@ class _BottombarState extends State<Bottombar> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,    // agar bottom bar tidak ke atas ketika keyboard muncul
       backgroundColor: Colors.white.withAlpha(55),
       body: Stack(
         children: [
