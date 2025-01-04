@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/widget/textButton.dart';
 import 'package:untitled/widget/textField1.dart';
-import 'package:untitled/firebaseCRUD/createUser.dart'; 
+import 'package:untitled/firebaseCRUD/createUser.dart';
 
 class Signuppage extends StatefulWidget {
   const Signuppage({super.key});
@@ -17,6 +17,7 @@ class _SignuppageState extends State<Signuppage> {
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
@@ -28,7 +29,7 @@ class _SignuppageState extends State<Signuppage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Passwords do not match!')),
       );
-      return;
+      return; // Stop further execution if passwords don't match
     }
 
     try {
@@ -36,6 +37,7 @@ class _SignuppageState extends State<Signuppage> {
       await _createUser.createUser(
         username: _usernameController.text.trim(),
         email: _emailController.text.trim(),
+        address: _addressController.text.trim(),
         password: _passwordController.text.trim(),
       );
 
@@ -43,9 +45,10 @@ class _SignuppageState extends State<Signuppage> {
         const SnackBar(content: Text('Account created successfully!')),
       );
 
-      // Navigate to the welcome page
-      Navigator.pushNamed(context, '/welcome');
+      // Navigate to the home page after successful account creation
+      Navigator.pushNamed(context, '/home');
     } catch (e) {
+      // Handle errors during account creation
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: ${e.toString()}')),
       );
@@ -86,7 +89,7 @@ class _SignuppageState extends State<Signuppage> {
                     child: TextFormField(
                       controller: _usernameController,
                       decoration: Textfield1(
-                        hintText: 'Username',
+                        hintText: 'John Doe',
                         prefixIcon: Icons.person,
                       ).decoration,
                       keyboardType: TextInputType.name,
@@ -100,10 +103,24 @@ class _SignuppageState extends State<Signuppage> {
                     child: TextFormField(
                       controller: _emailController,
                       decoration: Textfield1(
-                        hintText: 'Email',
+                        hintText: 'johndoe@gmail.com',
                         prefixIcon: Icons.email_rounded,
                       ).decoration,
                       keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Address
+                  Container(
+                    width: 350,
+                    child: TextFormField(
+                      controller: _addressController,
+                      decoration: Textfield1(
+                        hintText: 'Jl. Lorem no 1, Malang, Jawa Timur, Indonesia, 65146',
+                        prefixIcon: Icons.house_rounded,
+                      ).decoration,
+                      keyboardType: TextInputType.streetAddress,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -230,9 +247,8 @@ class _SignuppageState extends State<Signuppage> {
                         ),
                       ),
                       onPressed: () async {
-                        await _submitData(); // Wait for the data submission to complete
-                        Navigator.pushNamed(context, '/home'); // Navigate to the next screen
-                        },// Call the submit function
+                        await _submitData(); // Call the submit function
+                      },
                       child: const Text(
                         "Create Account",
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
