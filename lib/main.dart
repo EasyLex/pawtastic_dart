@@ -5,7 +5,7 @@ import 'package:untitled/pages/Orders/myOrders.dart';
 import 'package:untitled/pages/search.dart';
 import 'package:untitled/pages/settings.dart';
 import 'package:untitled/pages/starting/forgotPassword.dart';
-import 'package:untitled/pages/home.dart';
+import 'package:untitled/pages/Home/home.dart';
 import 'package:untitled/pages/starting/loginPage.dart';
 import 'package:untitled/pages/starting/onboarding.dart';
 import 'package:untitled/pages/starting/signupPage.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pawtastic',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Poppins', // membuat font Poppins untuk keseluruhan file

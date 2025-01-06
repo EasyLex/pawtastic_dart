@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled/pages/cart.dart';
-import 'package:untitled/pages/home.dart';
+import 'package:untitled/pages/Home/home.dart';
 import 'package:untitled/pages/Orders/myOrders.dart';
 import 'package:untitled/pages/search.dart';
 import 'package:untitled/pages/settings.dart';
@@ -65,7 +66,6 @@ class _BottombarState extends State<Bottombar> {
                     heightFactor: 0.8,
                     child: FloatingActionButton(
                       backgroundColor: currentIndex == 4 ? Color.fromRGBO(252, 147, 3, 1.0) : Colors.white,
-                      child: Icon(Icons.search_rounded),
                       elevation: 0.1,
                       // shape: TopHalfCircleBorder(strokeWidth: 1.5, outlineColor: Color.fromRGBO(252, 147, 3, 1.0)), // Use custom ,
                       shape: CircleBorder(
@@ -77,6 +77,12 @@ class _BottombarState extends State<Bottombar> {
                       onPressed: () {
                         setBottomBarIndex(4);
                       },
+                      // child: Icon(Icons.search_rounded),
+                      child: SvgPicture.asset(
+                        'assets/icon/search-svgrepo-bold-com.svg',  // Path to your SVG file
+                        height: 26.0,  // Adjust size
+                        width: 26.0,  // Adjust size
+                      ),
                     ),
                   ),
                   Container(
