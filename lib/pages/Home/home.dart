@@ -12,75 +12,133 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List categories =[
+  List categories = [
     "images/cat.jpeg",
     "images/dog.png",
     "images/hamster.jpeg",
     "images/fish.jpeg"
   ];
 
-  List categoryName =[
+  List categoryName = [
     "Cat",
     "Dog",
     "Hamster",
     "Fish"
   ];
-  
+
   // Dummy product list
-final List<Map<String, dynamic>> products = [
-  {
-    "productName": "Whiskas",
-    "productImage": "images/MakananHamsterJolly400gr.jpg",
-    "description": "Cat food",
-    "category": "Cat",
-    "price": "Rp 40.000",
-    "stock": 10,
-    "productSold": 15,
-    "sellerName": "Pet Shop A",
-    "sellerAddress": "123 Main St"
-  },
-  {
-    "productName": "Alice Sanbbi",
-    "productImage": "images/SisirBrushPetGroomingSisirKucingAnjing.jpg",
-    "description": "Bathing sand for hamsters",
-    "category": "Hamster",
-    "price": "Rp 43.000",
-    "stock": 8,
-    "productSold": 10,
-    "sellerName": "Pet Shop B",
-    "sellerAddress": "456 Market Rd"
-  },
-  {
-    "productName": "Hamster Cage",
-    "productImage": "images/LitterBoxKucingBesarJumboBaskom.png",
-    "description": "A small cage for hamsters",
-    "category": "Hamster",
-    "price": "Rp 30.000",
-    "stock": 5,
-    "productSold": 9,
-    "sellerName": "Pet Shop C",
-    "sellerAddress": "789 Pet Lane"
-  },
-];
+  final List<Map<String, dynamic>> products = [
+    {
+      "productName": "Jolly Makanan Hamster 400 gram",
+      "productImage": "images/MakananHamsterJolly400gr.jpg",
+      "description": "Hamster food",
+      "category": "Hamster",
+      "price": "Rp 40.000",
+      "stock": 10,
+      "productSold": 15,
+      "sellerName": "Pet Shop A",
+      "sellerAddress": "123 Main St"
+    },
+    {
+      "productName": "Sisir Brush Pet Grooming, Sisir Kucing Anjing",
+      "productImage": "images/SisirBrushPetGroomingSisirKucingAnjing.jpg",
+      "description": "Sisir untuk mempercantik bulu kucing",
+      "category": "Cat",
+      "price": "Rp 43.000",
+      "stock": 20,
+      "productSold": 10,
+      "sellerName": "Pet Shop B",
+      "sellerAddress": "456 Market Rd"
+    },
+    {
+      "productName": "Litter Box Kucing Besar",
+      "productImage": "images/LitterBoxKucingBesarJumboBaskom.png",
+      "description": "Tempat buang kotoran kucing ukuran jumbo",
+      "category": "Cat",
+      "price": "Rp 30.000",
+      "stock": 5,
+      "productSold": 18,
+      "sellerName": "Pet Shop C",
+      "sellerAddress": "789 Pet Lane"
+    },
+    {
+      "productName": "Pasir Kucing Wangi",
+      "productImage": "images/PasirWangiTayo3LtrGumpal.jpg",
+      "description": "Pasir kotoran kucing anti bau",
+      "category": "Cat",
+      "price": "Rp 30.000",
+      "stock": 5,
+      "productSold": 25,
+      "sellerName": "Pet Shop C",
+      "sellerAddress": "789 Pet Lane"
+    },
+    {
+      "productName": "Meja Aquarium",
+      "productImage": "images/meja_aquarium_jati_belanda.jpg",
+      "description": "Meja jati kokoh untuk aquarium",
+      "category": "Fish",
+      "price": "Rp 30.000",
+      "stock": 5,
+      "productSold": 13,
+      "sellerName": "Pet Shop C",
+      "sellerAddress": "789 Pet Lane"
+    },
+    {
+      "productName": "Susu anak anjing dan kucing",
+      "productImage": "images/BotolSusuAnjingKucingHewanNursingDotKittenDotAnjingPuppy.jpg",
+      "description": "Susu anak kucing dan anjing",
+      "category": ["Dog", "Cat"],
+      "price": "Rp 30.000",
+      "stock": 5,
+      "productSold": 13,
+      "sellerName": "Pet Shop C",
+      "sellerAddress": "789 Pet Lane"
+    },
+    {
+      "productName": "C-One Conditioning SHAMPOO",
+      "productImage": "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+      "description": "Shampoo mandi untuk hewan peliharaan kesayanganmu",
+      "category": ["Dog", "Cat"],
+      "price": "Rp 30.000",
+      "stock": 5,
+      "productSold": 13,
+      "sellerName": "Pet Shop C",
+      "sellerAddress": "789 Pet Lane"
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Sort the products by 'productSold' when the widget is first created
+    _sortProductsByProductSold();
+  }
+
+  // Function to sort products
+  void _sortProductsByProductSold() {
+    setState(() {
+      // Sorting products in descending order by 'productSold'
+      products.sort((a, b) => b["productSold"].compareTo(a["productSold"]));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final FocusNode _focusNode = FocusNode();
-    
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
-      
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: SafeArea(     
+        child: SafeArea(
           child: SingleChildScrollView(
-            // Padding agar isi halaman bagian bawah tidak tertutup bottom bar
             padding: EdgeInsets.only(bottom: 90, top: 25),
             child: Container(
               child: Column(
                 children: [
+                  // Header: User Profile and App Logo
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -105,9 +163,9 @@ final List<Map<String, dynamic>> products = [
                                 TextSpan(
                                   text: "Hello\n",
                                   style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.3,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.3,
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
@@ -116,15 +174,14 @@ final List<Map<String, dynamic>> products = [
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         height: 1.3,
-                                      )
+                                      ),
                                     )
-                                  ]
-                                )
-                              
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ]
+                        ],
                       ),
                       ClipRRect(
                         child: Image.asset(
@@ -137,41 +194,30 @@ final List<Map<String, dynamic>> products = [
                     ],
                   ),
                   SizedBox(height: 30.0),
+                  
+                  // Search Bar
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14.0),
                     child: Container(
                       padding: EdgeInsets.only(left: 10.0),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(235, 233, 233, 1),
-                        borderRadius: BorderRadius.circular(30.0)
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         decoration: InputDecoration(
-                          border:InputBorder.none,
+                          border: InputBorder.none,
                           hintText: "Search here",
-                          hintStyle: TextStyle(
-                    
-                          ),
+                          hintStyle: TextStyle(),
                           prefixIcon: Icon(Icons.search_rounded),
-                          // prefixIcon: Padding(
-                          //   padding: const EdgeInsets.only(left: 10.0),  // Padding inside prefixIcon
-                          //   child: SvgPicture.asset(
-                          //     'assets/icon/search-alt-svgrepo-com.svg',  // Path to your SVG file
-                          //     height: 30.0,  // Adjust size
-                          //     width: 30.0,  // Adjust size
-                          //     fit: BoxFit.contain
-                          //   ),
-                          // ),
-                          
                         ),
-                        
                       ),
                     ),
                   ),
                   SizedBox(height: 30.0),
 
-                  // Kategori
+                  // Categories Section
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 14.0),
                     child: Row(
@@ -180,9 +226,7 @@ final List<Map<String, dynamic>> products = [
                         Text(
                           "Categories",
                           style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700
-                          )
+                              fontSize: 18.0, fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
@@ -192,17 +236,18 @@ final List<Map<String, dynamic>> products = [
                     margin: EdgeInsets.only(left: 14.0),
                     height: 120.0,
                     child: ListView.builder(
-                      itemCount: categories.length,   //tampilkan semua yang ada di categories
+                      itemCount: categories.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index){
-                        return CategoryTile(image: categories[index], name:categoryName[index]);
-                      }
+                      itemBuilder: (context, index) {
+                        return CategoryTile(
+                            image: categories[index], name: categoryName[index]);
+                      },
                     ),
                   ),
                   SizedBox(height: 30.0),
 
-                  // Terpopouler
+                  // Popular Products Section
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 14.0),
                     child: Row(
@@ -211,13 +256,11 @@ final List<Map<String, dynamic>> products = [
                         Text(
                           "Most Popular",
                           style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700
-                          )
+                              fontSize: 18.0, fontWeight: FontWeight.w700),
                         ),
                         TextbuttonNavigation(
-                          text: "see all", 
-                          route: '/test', 
+                          text: "see all",
+                          route: '/most-popular',
                           textStyle: TextStyle(
                             color: Color.fromRGBO(252, 147, 3, 1.0),
                             fontWeight: FontWeight.w500,
@@ -227,17 +270,19 @@ final List<Map<String, dynamic>> products = [
                     ),
                   ),
                   const SizedBox(height: 10.0),
+                  
+                  // Product Grid
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 14.0),
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: products.length,
+                      itemCount: 6,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10.0,
                         mainAxisSpacing: 10.0,
-                        childAspectRatio: 0.74, // Adjust the aspect ratio to match the card's style
+                        childAspectRatio: 0.74,
                       ),
                       itemBuilder: (context, index) {
                         final product = products[index];
@@ -273,12 +318,10 @@ final List<Map<String, dynamic>> products = [
                                     child: Image.asset(
                                       product["productImage"],
                                       height: 180,
-                                      // width: double.infinity,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-
                                 const SizedBox(height: 8.0),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -294,7 +337,6 @@ final List<Map<String, dynamic>> products = [
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      
                                       Text(
                                         product["price"],
                                         style: const TextStyle(
@@ -303,13 +345,13 @@ final List<Map<String, dynamic>> products = [
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 3.0,),
+                                      SizedBox(height: 3.0),
                                       Text(
                                         product["sellerName"],
                                         style: const TextStyle(
                                           fontSize: 13.0,
                                           fontWeight: FontWeight.w500,
-                                          fontFamily: "Montserrat"
+                                          fontFamily: "Montserrat",
                                         ),
                                       ),
                                     ],
@@ -322,19 +364,13 @@ final List<Map<String, dynamic>> products = [
                       },
                     ),
                   ),
-
-
                 ],
-              )
-            
+              ),
             ),
           ),
-        
         ),
-        
       ),
     );
-
   }
 }
 
@@ -345,10 +381,10 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context)=> ProductCategory(categoryName: name))
+          MaterialPageRoute(builder: (context) => ProductCategory(categoryName: name)),
         );
       },
       child: Container(
@@ -357,7 +393,7 @@ class CategoryTile extends StatelessWidget {
         width: 90.0,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -366,20 +402,19 @@ class CategoryTile extends StatelessWidget {
               image,
               height: 90,
               width: 60,
-              fit: BoxFit.cover  
+              fit: BoxFit.cover,
             ),
             Icon(Icons.arrow_forward_ios_rounded, color: Colors.orange)
-          ]
+          ],
         ),
-      )
+      ),
     );
   }
 }
 
-class toHomePage extends StatelessWidget{
+class toHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Bottombar(initialIndex: 0);  
+    return Bottombar(initialIndex: 0);
   }
 }
-

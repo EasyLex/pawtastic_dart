@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/Home/most_popular.dart';
 import 'package:untitled/pages/bottomBar.dart';
 import 'package:untitled/pages/cart.dart';
 import 'package:untitled/pages/Orders/myOrders.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/forgot-password': (context) => const Forgotpassword(),
         '/home': (context) => toHomePage(),
         // '/home': (context) => Bottombar(initialIndex: 0),    // jangan dihapus
+        '/most-popular': (context) => MostPopular(),
         '/cart': (context) => toCartPage(),
         '/my-orders': (context) => toMyOrdersPage(),
         // '/detail-orders': (context) => Detailorders(),
