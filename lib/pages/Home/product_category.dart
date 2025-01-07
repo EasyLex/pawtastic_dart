@@ -134,7 +134,7 @@ class ProductCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  product["price"],
+                  'Rp ${product["price"]}',
                   style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.orange,
