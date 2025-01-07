@@ -240,8 +240,14 @@ class _HomeState extends State<Home> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        final nameCategory = categoryName[index];
+                        final filteredProducts = products
+                            .where((product) => product['category'].contains(nameCategory))    // Check if the category array contains the current category
+                            .toList(); // Filter products by category name
                         return CategoryTile(
-                            image: categories[index], name: categoryName[index]);
+                            image: categories[index],
+                            name: nameCategory,
+                            products: filteredProducts);
                       },
                     ),
                   ),
@@ -277,7 +283,7 @@ class _HomeState extends State<Home> {
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 6,
+                      itemCount: 6,   //hanya menampilkan 6 di home
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10.0,
@@ -375,8 +381,9 @@ class _HomeState extends State<Home> {
 }
 
 class CategoryTile extends StatelessWidget {
-  String image, name;
-  CategoryTile({required this.image, required this.name});
+  final String image, name;
+  final List<Map<String, dynamic>> products;
+  CategoryTile({required this.image, required this.name, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -384,7 +391,7 @@ class CategoryTile extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProductCategory(categoryName: name)),
+          MaterialPageRoute(builder: (context) => ProductCategory(categoryName: name, products: products)),
         );
       },
       child: Container(
