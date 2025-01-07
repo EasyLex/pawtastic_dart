@@ -5,13 +5,41 @@ class CreateUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> createUser({
+  // Function to check if the username is already taken
+  Future<bool> isUsernameTaken(String username) async {
+    final snapshot = await _firestore
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+    return snapshot.docs.isNotEmpty;
+  }
+
+  // Function to check if the email is already in use
+  Future<bool> isEmailTaken(String email) async {
+    final snapshot = await _firestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    return snapshot.docs.isNotEmpty;
+  }
+
+  // Function to create a user
+  Future<String?> createUser({
     required String username,
     required String email,
     required String address,
     required String password,
   }) async {
     try {
+      // Check if the email or username is already taken
+      if (await isEmailTaken(email)) {
+        return "This email is already taken.";
+      }
+
+      if (await isUsernameTaken(username)) {
+        return "This username is already taken.";
+      }
+
       // Create user with Firebase Auth
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -43,34 +71,10 @@ class CreateUser {
         'address': address,
         'added_at': Timestamp.now(),
       });
+
+      return null; // User created successfully
     } catch (e) {
-      throw Exception('Error creating user: ${e.toString()}');
-    }
-  }
-
-  // Function to add additional addresses for an existing user
-  Future<void> addAddress({
-    required String address,
-    required String userId,
-  }) async {
-    try {
-      // Reference to the addresses subcollection
-      final addressCollection = _firestore
-          .collection('users')
-          .doc(userId)
-          .collection('addresses');
-
-      // Get the current count of addresses
-      final snapshot = await addressCollection.get();
-      final addressCount = snapshot.docs.length + 1; // Increment for new address
-
-      // Add address as "address1", "address2", etc.
-      await addressCollection.doc('address$addressCount').set({
-        'address': address,
-        'added_at': Timestamp.now(),
-      });
-    } catch (e) {
-      throw Exception('Error adding address: ${e.toString()}');
+      return "Error creating user: ${e.toString()}";
     }
   }
 }

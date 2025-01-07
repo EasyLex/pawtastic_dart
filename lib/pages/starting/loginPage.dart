@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/widget/textButton.dart';
 import 'package:untitled/widget/textField1.dart';
@@ -16,21 +15,53 @@ class _LoginpageState extends State<Loginpage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  final LoginService _loginService = LoginService(); // Initialize LoginService
-
   // Function to handle login
   Future<void> _login() async {
-    // Call the login function from LoginService
-    User? user = await _loginService.login(
-      _emailController.text.trim(),
-      _passwordController.text.trim(),
-      context,
-    );
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-    if (user != null) {
-      // If login is successful, navigate to home page
-      Navigator.pushNamed(context, '/home');
+    if (email.isEmpty || password.isEmpty) {
+      _showSnackBar("Please enter both email and password.", Colors.red);
+      return;
     }
+
+    String? loginResult = await LoginUser().login(email, password);
+
+    if (loginResult == null) {
+      Navigator.pushNamed(context, '/home'); // Navigate to home page if successful
+    } else {
+      _showSnackBar(loginResult, Colors.red); // Show error message if login failed
+    }
+  }
+
+  // Function to show SnackBar with custom message and color
+  void _showSnackBar(String message, Color backgroundColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.error_outline, color: Colors.white),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: backgroundColor,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      ),
+    );
   }
 
   @override
@@ -60,7 +91,7 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  
+
                   // Email input field
                   Container(
                     width: 350,
@@ -74,7 +105,7 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Password input field
                   Container(
                     width: 350,
@@ -101,7 +132,7 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  
+
                   // Forgot password link
                   Container(
                     width: 340,
@@ -119,9 +150,9 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 50),
-                  
+
                   // Login button
                   Container(
                     width: 350,
@@ -133,9 +164,7 @@ class _LoginpageState extends State<Loginpage> {
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                       ),
-                      onPressed: () {
-                        _login();  // Call the login function
-                      },
+                      onPressed: _login, // Call the login function
                       child: const Text(
                         "Login",
                         style: TextStyle(
@@ -146,7 +175,7 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  
+
                   // Navigate to Sign Up page
                   Container(
                     height: 50.0,

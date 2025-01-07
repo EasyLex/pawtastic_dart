@@ -1,33 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-class LoginService {
+class LoginUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Function to handle login
-  Future<User?> login(String email, String password, BuildContext context) async {
+  // Function to log in with email and password
+  Future<String?> login(String email, String password) async {
     try {
-      // Sign in the user with Firebase
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      // Check if the login is successful
-      if (userCredential.user != null) {
-        return userCredential.user; // Return the user on successful login
-      }
+      // Attempt to sign in
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return null; // Return null for success
+    } on FirebaseAuthException {
+      // Return a custom error message for any authentication exception
+      return 'Incorrect Email or Password.';
     } catch (e) {
-      // Show an error if login fails
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed: ${e.toString()}')),
-      );
+      // Catch any unexpected error and return a generic message
+      return 'An unexpected error occurred. Please try again later.';
     }
-    return null; // Return null if login fails
-  }
-
-  // Optionally, a function to log out
-  Future<void> logout() async {
-    await _auth.signOut();
   }
 }

@@ -21,38 +21,64 @@ class _SignuppageState extends State<Signuppage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  final CreateUser _createUser = CreateUser(); // Instance of CreateUser
+  final CreateUser _createUser = CreateUser();
 
   Future<void> _submitData() async {
     // Validate password and confirm password
     if (_passwordController.text != _confirmPasswordController.text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Passwords do not match!')),
-      );
-      return; // Stop further execution if passwords don't match
+      _showSnackBar("Passwords do not match!",  Colors.red);
+      return;
     }
 
-    try {
-      // Call CreateUser to create a user
-      await _createUser.createUser(
-        username: _usernameController.text.trim(),
-        email: _emailController.text.trim(),
-        address: _addressController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+    // Attempt to create user through CreateUser service
+    final String? result = await _createUser.createUser(
+      username: _usernameController.text.trim(),
+      email: _emailController.text.trim(),
+      address: _addressController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created successfully!')),
-      );
-
-      // Navigate to the home page after successful account creation
+    if (result != null) {
+      // Show error message if user creation failed
+      _showSnackBar(result,  Colors.red);
+    } else {
+      // Show success message and navigate to home if successful
+      _showSnackBar("Account created successfully!", const Color.fromRGBO(0, 128, 0, 1.0));
       Navigator.pushNamed(context, '/home');
-    } catch (e) {
-      // Handle errors during account creation
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
-      );
     }
+  }
+
+  void _showSnackBar(String message, Color backgroundColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              backgroundColor == Colors.red ? Icons.error_outline : Icons.check_circle_outline,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: backgroundColor,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      ),
+    );
   }
 
   @override
@@ -82,7 +108,7 @@ class _SignuppageState extends State<Signuppage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-
+                  
                   // Username
                   Container(
                     width: 350,
