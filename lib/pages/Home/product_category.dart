@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/Home/product_details.dart';
+import 'package:untitled/pages/Product-Page/product_details.dart';
 
 class ProductCategory extends StatelessWidget {
   final String categoryName;
@@ -69,7 +69,7 @@ class ProductCategory extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            ProductDetails(product: product),
+                            ProductDetails(product: product, allProducts: products),
                       ),
                     );
                   },
