@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "928475827020",
+    "project_id": "pawtastic-app-99557",
+    "storage_bucket": "pawtastic-app-99557.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928475827020:android:9d4251e265009acf4f5de9",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKt-9mF2NjyXKQWZ6Ab33iGB2JEjT986Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
