@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled/pages/Home/product_category.dart';
 import 'package:untitled/pages/Product-Page/seller_product_list.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -42,8 +43,7 @@ class ProductDetails extends StatelessWidget {
               // Product Image
               Center(
                 child: Image.asset(
-                  // product["productImage"],
-                  "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                  product["productImage"],
                   height: 300,
                   fit: BoxFit.cover,
                 ),
@@ -111,7 +111,7 @@ class ProductDetails extends StatelessWidget {
                       categories.length,
                       (index) => GestureDetector(
                         onTap: () {
-                          // Handle category click if needed
+                          // Handle category filter action
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -169,16 +169,15 @@ class ProductDetails extends StatelessWidget {
                   // Seller Info (in one row with right arrow)
                   TextButton(
                     onPressed: () {
-                      // Navigate to SellerProductList by filtering based on seller's name
-                      final sellerName = product["sellerName"];
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SellerProductList(
-                      //       sellerName: sellerName, 
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SellerProductList(
+                            seller: seller,
+                            sellerId: product["sellerId"], 
+                          )
+                        ),
+                      );
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -206,12 +205,17 @@ class ProductDetails extends StatelessWidget {
                                     fontWeight: FontWeight.bold, 
                                   ),
                                 ),
-                                Text(
-                                  "${seller["shop_address"]}",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                  )  
+                                Container(
+                                  width: 350.0,  // Specify a maximum width for the text container
+                                  child: Text(
+                                    "${seller["shop_address"]}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,  // Truncates with ellipsis if overflow
+                                    maxLines: 2,  // Keep the text on 1 line
+                                  ),
                                 ),
                               ],
                             ),
@@ -239,27 +243,103 @@ class ProductDetails extends StatelessWidget {
       // Add to Cart button always at the bottom
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: () {
-            // Handle Add to Cart action
-          },
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            backgroundColor: Color.fromRGBO(252, 147, 3, 1.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ),
-          child: const Text(
-            'Add to Cart',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+        child: AddToCartWithQuantity(product: product), // Adding the quantity control here
+      ),
+    );
+  }
+}
+
+class AddToCartWithQuantity extends StatefulWidget {
+  final Map<String, dynamic> product;
+
+  const AddToCartWithQuantity({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  @override
+  _AddToCartWithQuantityState createState() => _AddToCartWithQuantityState();
+}
+
+class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
+  int quantity = 0;  // Default quantity is 1
+
+  // Function to increase quantity
+  void increaseQuantity() {
+    // Check if quantity is less than the stock
+    if (quantity < widget.product["stock"]) {
+      setState(() {
+        quantity++;
+      });
+    }
+    // else {
+    //   // Optionally show an alert when stock is exceeded
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Cannot exceed stock of ${widget.product["stock"]}'),
+    //     ),
+    //   );
+    // }
+
+  }
+
+  // Function to decrease quantity, ensuring it doesn't go below 1
+  void decreaseQuantity() {
+    setState(() {
+      if (quantity > 0) {
+        quantity--;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        // Decrease quantity button
+        IconButton(
+          icon: const Icon(Icons.remove),
+          onPressed: decreaseQuantity,
+          color: Colors.orange,
+        ),
+        // Display quantity
+        Text(
+          '$quantity',
+          style: const TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
         ),
-      ),
+        // Increase quantity button
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: increaseQuantity,
+          color: Colors.orange,
+        ),
+        // const Spacer(),
+        // Add to Cart button
+        Container(
+          width: 80,  // Set width of the button
+          height: 80,  // Set height of the button
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color.fromRGBO(252, 147, 3, 1.0),  // Same as the background color
+          ),
+          child: IconButton(
+            icon: const Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+              size: 40,  // Set icon size for the button
+            ),
+            onPressed: () {
+              // Handle Add to Cart action
+              print("Adding $quantity ${widget.product['productName']} to cart");
+            },
+          ),
+        ),
+      ],
     );
   }
 }

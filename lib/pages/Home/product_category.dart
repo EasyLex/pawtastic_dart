@@ -237,8 +237,8 @@ class ProductCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                // product["productImage"],
-                "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                product["productImage"],
+                // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                 height: 180,
                 fit: BoxFit.cover,
               ),
