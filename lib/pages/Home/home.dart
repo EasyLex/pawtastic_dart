@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/Home/product_details.dart';
+import 'package:untitled/pages/Product-Page/product_details.dart';
 import 'package:untitled/pages/bottomBar.dart';
 import 'package:untitled/pages/Home/product_category.dart';
 import 'package:untitled/widget/textButton.dart';
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
     {
       "productName": "Botol susu anak anjing dan kucing",
       "productImage": "images/BotolSusuAnjingKucingHewanNursingDotKittenDotAnjingPuppy.jpg",
-      "description": "Botol susu anak kucing dan anjing",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "category": ["Dog", "Cat"],
       "price": 50000,
       "stock": 5,
@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
       "price": 30000,
       "stock": 5,
       "productSold": 13,
-      "sellerName": "Pet Shop C",
+      "sellerName": "Pet Shop A",
       "sellerAddress": "789 Pet Lane"
     },
   ];
@@ -245,9 +245,10 @@ class _HomeState extends State<Home> {
                             .where((product) => product['category'].contains(nameCategory))    // Check if the category array contains the current category
                             .toList(); // Filter products by category name
                         return CategoryTile(
-                            image: categories[index],
-                            name: nameCategory,
-                            products: filteredProducts);
+                          image: categories[index],
+                          name: nameCategory,
+                          products: filteredProducts
+                        );
                       },
                     ),
                   ),
@@ -298,7 +299,7 @@ class _HomeState extends State<Home> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProductDetails(product: product),
+                                builder: (context) => ProductDetails(product: product, allProducts: products),
                               ),
                             );
                           },

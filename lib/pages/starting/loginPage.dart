@@ -28,9 +28,11 @@ class _LoginpageState extends State<Loginpage> {
     String? loginResult = await LoginUser().login(email, password);
 
     if (loginResult == null) {
-      Navigator.pushNamed(context, '/home'); // Navigate to home page if successful
+      Navigator.pushNamed(
+          context, '/home'); // Navigate to home page if successful
     } else {
-      _showSnackBar(loginResult, Colors.red); // Show error message if login failed
+      _showSnackBar(
+          loginResult, Colors.red); // Show error message if login failed
     }
   }
 
@@ -46,10 +48,10 @@ class _LoginpageState extends State<Loginpage> {
               child: Text(
                 message,
                 style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
+                    fontFamily: 'Montserrat',
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
             ),
           ],
@@ -71,7 +73,8 @@ class _LoginpageState extends State<Loginpage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               margin: EdgeInsets.only(top: 50),
               alignment: Alignment.topCenter,
@@ -117,18 +120,20 @@ class _LoginpageState extends State<Loginpage> {
                         hintText: 'Password',
                         prefixIcon: Icons.lock,
                       ).decoration.copyWith(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
                     ),
                   ),
                   const SizedBox(height: 5),
