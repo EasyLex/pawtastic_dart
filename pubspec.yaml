@@ -66,6 +66,7 @@ flutter:
   # Menambahkan aset seperti gambar, dengan membuat folder terlebih dahulu (cthnya images), cukup panggil directory:
   assets:
     - images/
+    - images/products/
     - assets/fonts/
     - assets/animation/
     - assets/icon/
