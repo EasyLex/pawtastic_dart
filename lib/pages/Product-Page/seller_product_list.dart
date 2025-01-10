@@ -70,12 +70,15 @@ class SellerProductList extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     // Navigate to details page, passing product data
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetails(product: product, allProducts: sellerProducts),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => ProductDetails(
+                    //       product: product, 
+                    //       allProducts: sellerProducts
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     decoration: BoxDecoration(

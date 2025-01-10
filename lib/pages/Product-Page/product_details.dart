@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/Home/product_category.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled/pages/Product-Page/seller_product_list.dart';
 
 class ProductDetails extends StatelessWidget {
   final Map<String, dynamic> product;
-  final List<Map<String, dynamic>> allProducts;  // The list of all products passed
+  final Map<String, dynamic> seller;
 
   const ProductDetails({
     required this.product,
-    required this.allProducts,
+    required this.seller,
     super.key,
   });
 
@@ -41,7 +42,8 @@ class ProductDetails extends StatelessWidget {
               // Product Image
               Center(
                 child: Image.asset(
-                  product["productImage"],
+                  // product["productImage"],
+                  "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                   height: 300,
                   fit: BoxFit.cover,
                 ),
@@ -61,7 +63,7 @@ class ProductDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Rp ${product["price"]}',
+                    '${NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0).format(product["price"])}',
                     style: const TextStyle(
                       fontSize: 18.0,
                       color: Color.fromRGBO(252, 147, 3, 1.0),
@@ -108,23 +110,14 @@ class ProductDetails extends StatelessWidget {
                     children: List.generate(
                       categories.length,
                       (index) => GestureDetector(
-                        
                         onTap: () {
-                          // final filteredProducts = product
-                          //       .where((product) => product['category'].contains(categories[index]))    // Check if the category array contains the current category
-                          //       .toList();
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => ProductCategory(categoryName: categories[index], products: filteredProducts)),
-                          // );
+                          // Handle category click if needed
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                           decoration: BoxDecoration(
                             color: Colors.orange.shade50,
                             borderRadius: BorderRadius.circular(13.0),
-                            // No outline
                           ),
                           child: Text(
                             categories[index],  // Display the category
@@ -150,7 +143,6 @@ class ProductDetails extends StatelessWidget {
                   fontSize: 16.0,
                 ),
               ),
-              // const SizedBox(height: 8.0),
               Text(
                 product["description"],  // Content in normal font weight
                 style: const TextStyle(
@@ -176,28 +168,24 @@ class ProductDetails extends StatelessWidget {
                 children: [
                   // Seller Info (in one row with right arrow)
                   TextButton(
-                  onPressed: () {
-                    // Filter products based on the selected seller name
-                    final sellerProducts = _getSellerProducts(product['sellerName']);
-
-                    // Navigate to a new screen showing the products by this seller
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SellerProductList(
-                          sellerName: product['sellerName'],
-                          sellerProducts: sellerProducts, // Passing filtered products
-                        ),
-                      ),
-                    );
-
+                    onPressed: () {
+                      // Navigate to SellerProductList by filtering based on seller's name
+                      final sellerName = product["sellerName"];
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SellerProductList(
+                      //       sellerName: sellerName, 
+                      //     ),
+                      //   ),
+                      // );
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent, // Make the button background transparent
-                      padding: EdgeInsets.zero, // Remove padding to make the button fit the content
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink the tap area to content size
-                      shape: RoundedRectangleBorder( // Ensure the button has square corners
-                        borderRadius: BorderRadius.zero, // No rounded corners
+                      backgroundColor: Colors.transparent,
+                      padding: EdgeInsets.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
                     ),
                     child: Column(
@@ -211,18 +199,18 @@ class ProductDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${product["sellerName"]}",
+                                  "${seller["shop_name"]}",
                                   style: TextStyle(
                                     color: Color.fromRGBO(252, 147, 3, 1.0),
                                     fontSize: 16.0,
-                                    fontWeight: FontWeight.bold, // Make the seller name bold
+                                    fontWeight: FontWeight.bold, 
                                   ),
                                 ),
                                 Text(
-                                  "${product["sellerAddress"]}",
+                                  "${seller["shop_address"]}",
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.w400
+                                    fontWeight: FontWeight.w400,
                                   )  
                                 ),
                               ],
@@ -230,7 +218,7 @@ class ProductDetails extends StatelessWidget {
                             // Right Arrow Icon
                             Icon(
                               Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(252, 147, 3, 1.0), // Right arrow icon
+                              color: Color.fromRGBO(252, 147, 3, 1.0),
                             ),
                           ],
                         ),
@@ -240,8 +228,6 @@ class ProductDetails extends StatelessWidget {
                   ),
                 ],
               ),
-
-
               const SizedBox(height: 40.0), // To push the button down a bit
 
               // Grey Divider Line
@@ -276,11 +262,4 @@ class ProductDetails extends StatelessWidget {
       ),
     );
   }
-
-  List<Map<String, dynamic>> _getSellerProducts(String sellerName) {
-    // Filter the products by the seller's name
-    return allProducts.where((product) => product['sellerName'] == sellerName).toList();
-  }
 }
-
-
