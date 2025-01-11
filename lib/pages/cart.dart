@@ -28,6 +28,8 @@ class _CartState extends State<Cart> {
 }
 
 class toCartPage extends StatelessWidget{
+  const toCartPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Bottombar(initialIndex: 1);  

@@ -11,6 +11,18 @@ class MostPopular extends StatefulWidget {
 }
 
 class _MostPopularState extends State<MostPopular> {
+  // Fetch data from Firestore and display in the grid
+  late Stream<QuerySnapshot> _productsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize Firestore stream to fetch products sorted by 'productSold'
+    _productsStream = FirebaseFirestore.instance
+        .collection('products')
+        .orderBy('product_sold', descending: true) // Order by productSold in descending order
+        .snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +83,7 @@ class _MostPopularState extends State<MostPopular> {
                 var products = snapshot.data!.docs.map((doc) {
                   return {
                     "productName": doc['product_name'],
-                    "productImage": doc['image_url'],
+                    // "productImage": doc['productImage'],
                     "description": doc['description'],
                     "category": doc['categories'],
                     "price": doc['price'],
@@ -143,8 +155,8 @@ class _MostPopularState extends State<MostPopular> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.asset(
-                                  product["productImage"],
-                                  // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                                  // product["productImage"],
+                                  "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                                   height: 180,
                                   fit: BoxFit.cover,
                                 ),

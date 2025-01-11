@@ -47,7 +47,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     ),
                   ),              
                   const SizedBox(height: 30),
-                  Container(
+                  SizedBox(
                     width: 350,
                     child: TextFormField(
                       decoration: Textfield1(
@@ -59,7 +59,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   ),
                   const SizedBox(height: 20),
 
-                  Container(
+                  SizedBox(
                     width: 340,
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -90,7 +90,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   
                   const SizedBox(height: 50),
                   
-                  Container(
+                  SizedBox(
                     width: 350,
                     height: 55,
                     child: ElevatedButton(

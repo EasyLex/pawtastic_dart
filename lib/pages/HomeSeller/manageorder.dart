@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/Orders/detailOrders.dart';
 import 'package:untitled/pages/bottomBar.dart';
 
-// MyOrders Page with TabBar (Nested Navigation)
-class MyOrders extends StatefulWidget {
-  const MyOrders({super.key});
+// ManageOrders Page with TabBar (Nested Navigation)
+class ManageOrders extends StatefulWidget {
+  const ManageOrders({super.key});
 
   @override
-  _MyOrdersState createState() => _MyOrdersState();
+  _ManageOrdersState createState() => _ManageOrdersState();
 }
 
 // Order Model
@@ -19,7 +18,7 @@ class Order {
   final String orderDate;
   final String paymentMethod;
   final String? deliveredDate; // Can be null
-  final String status; // 'delivered', 'processing', or 'cancelled'
+  final String status; // 'pending', 'delivered', or 'cancelled'
   final String detailStatus;
 
   Order({
@@ -35,15 +34,16 @@ class Order {
   });
 }
 
-class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin {
+class _ManageOrdersState extends State<ManageOrders>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   // data dummy (tidak dipakai setelah connect ke db)
   final List<Order> orders = [
     Order(
       orderId: '1947034',
-      shop: 'Vidibi Pet Shop',
-      shippingAddress: 'Blimbing, Kota Malang',
+      shop: 'IW3475453455',
+      shippingAddress: 'Cat Food Whiskas x1\nHamsfood x1',
       totalPrice: 40000,
       orderDate: '05-11-2024',
       paymentMethod: 'Credit Card',
@@ -106,23 +106,14 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
       status: 'cancelled',
       detailStatus: 'Empty stock',
     ),
-    Order(
-      orderId: '1947040',
-      shop: 'Patzy Pet Shop',
-      shippingAddress: 'Jalan Merdeka, Kota Malang',
-      totalPrice: 30000,
-      orderDate: '07-11-2024',
-      paymentMethod: 'PayPal',
-      deliveredDate: '07-11-2024, 16:00',
-      status: 'delivered',
-      detailStatus: 'Delivered',
-    ),
   ];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);  // 3 tabs for processing, completed, and cancelled
+    _tabController = TabController(
+        length: 3,
+        vsync: this); // 3 tabs for processing, completed, and cancelled
   }
 
   @override
@@ -137,21 +128,23 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
-        automaticallyImplyLeading: false,  // Remove back button
+        // automaticallyImplyLeading: false, // Remove back button
         title: Padding(
-          padding: const EdgeInsets.only(top: 10.0),  // Add margin for the title
+          padding: const EdgeInsets.only(top: 10.0), // Add margin for the title
           child: Column(
-            mainAxisSize: MainAxisSize.min,  // Ensure the column only takes as much space as needed
+            mainAxisSize: MainAxisSize
+                .min, // Ensure the column only takes as much space as needed
             children: [
               // Title Widget
               const Center(
                 child: Text(
-                  'My Orders',
+                  'Manage Orders',
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0,  
+                    fontSize: 18.0,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               // Add a SizedBox after the title
@@ -159,57 +152,64 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
             ],
           ),
         ),
-        
+
         iconTheme: const IconThemeData(color: Colors.black),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: TabBar(
-                controller: _tabController,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.black,
-                dividerColor: Colors.transparent,
-                indicatorSize: TabBarIndicatorSize.label,  // This ensures indicator takes up the full width of the tab
-                // indicatorWeight: 4.0,
-                indicator: BoxDecoration(
-                  color: Color.fromRGBO(252, 147, 3, 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-               labelStyle: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                ),
-                unselectedLabelStyle: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                tabs: const [
-                  Tab(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0),  // Add padding to create space around text
-                      child: Text('Delivered'),
-                    ),
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: TabBar(
+                  controller: _tabController,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.black,
+                  dividerColor: Colors.transparent,
+                  indicatorSize: TabBarIndicatorSize
+                      .label, // This ensures indicator takes up the full width of the tab
+                  // indicatorWeight: 4.0,
+                  indicator: BoxDecoration(
+                    color: Color.fromRGBO(252, 147, 3, 1.0),
+                    borderRadius: BorderRadius.circular(25.0),
                   ),
-                  Tab(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0),  // Add padding to create space around text
-                      child: Text('Processing'),
-                    ),
+                  labelStyle: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
                   ),
-                  Tab(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 17.0),  // Add padding to create space around text
-                      child: Text('Cancelled'),
-                    ),
+                  unselectedLabelStyle: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
+                  tabs: const [
+                    Tab(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                15.0), // Add padding to create space around text
+                        child: Text('Pending'),
+                      ),
+                    ),
+                    Tab(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                12.0), // Add padding to create space around text
+                        child: Text('Delivered'),
+                      ),
+                    ),
+                    Tab(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                17.0), // Add padding to create space around text
+                        child: Text('Cancelled'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height:5.0),
-          ],
+              const SizedBox(height: 5.0),
+            ],
           ),
         ),
       ),
@@ -217,9 +217,18 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
         controller: _tabController,
         children: [
           // panggil masing-masing page dan lakukan passing data dummy
-          CompletedOrders(orders: orders.where((order) => order.status == 'delivered').toList()),  
-          ProcessingOrders(orders: orders.where((order) => order.status == 'processing').toList()),
-          CancelledOrders(orders: orders.where((order) => order.status == 'cancelled').toList()),
+          CompletedOrders(
+              orders: orders
+                  .where((order) => order.status == 'delivered')
+                  .toList()),
+          ProcessingOrders(
+              orders: orders
+                  .where((order) => order.status == 'processing')
+                  .toList()),
+          CancelledOrders(
+              orders: orders
+                  .where((order) => order.status == 'cancelled')
+                  .toList()),
         ],
       ),
     );
@@ -228,23 +237,24 @@ class _MyOrdersState extends State<MyOrders> with SingleTickerProviderStateMixin
 
 class CompletedOrders extends StatelessWidget {
   final List<Order> orders;
-
   const CompletedOrders({super.key, required this.orders});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
-      body: SafeArea(     
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: 70),
           child: Column(
             children: [
               ListView.builder(
-                shrinkWrap: true, // Allows ListView to take only as much space as required
-                physics: NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
+                shrinkWrap:
+                    true, // Allows ListView to take only as much space as required
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
                 padding: const EdgeInsets.all(16.0),
-                itemCount: orders.length, 
+                itemCount: orders.length,
                 itemBuilder: (context, index) {
                   // buat orderId sementara
                   final order = orders[index];
@@ -282,67 +292,59 @@ class CompletedOrders extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                         // nama toko
+                          // nama toko
                           Text(
-                            "From: ${order.shop}",  // sementara belum dinamis
+                            "Tracking number: ${order.shop}", // sementara belum dinamis
                             style: TextStyle(fontSize: 14.0),
                           ),
                           // alamat
                           Text(
-                            "Shipping Address: ${order.shippingAddress}",
+                            "Product list:\n${order.shippingAddress}",
                             style: TextStyle(fontSize: 14.0),
                           ),
                           const SizedBox(height: 8.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column( 
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // total belanja
-                                  Text.rich(
-                                    TextSpan(
-                                      text: "Total Amount: ",
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: "Rp ${order.totalPrice}",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // total belanja
+                                    Text.rich(
+                                      TextSpan(
+                                        text: "Total Amount: ",
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: "Rp ${order.totalPrice}",
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  // detailed status 
-                                  Text(
-                                    "Delivered ${order.deliveredDate}",
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green[600],
+                                    // detailed status
+                                    Text(
+                                      "Delivered ${order.deliveredDate}",
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green[600],
+                                      ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              
+                                  ]),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: OutlinedButton(
-                                  onPressed: () {
-                                    // Navigator.pushNamed(context, '/detail-orders');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Detailorders(order: order),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: const Color.fromARGB(255, 108, 108, 108)),
+                                    side: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 108, 108, 108)),
                                   ),
-                                  child: const Text("Details"),
+                                  child: const Text("Confirm"),
                                 ),
                               ),
                             ],
@@ -356,7 +358,6 @@ class CompletedOrders extends StatelessWidget {
             ],
           ),
         ),
-       
       ),
     );
   }
@@ -365,21 +366,22 @@ class CompletedOrders extends StatelessWidget {
 // Sub-page Widgets
 class ProcessingOrders extends StatelessWidget {
   final List<Order> orders;
-
   const ProcessingOrders({super.key, required this.orders});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
-      body: SafeArea(     
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: 70),
           child: Column(
             children: [
               ListView.builder(
-                shrinkWrap: true, // Allows ListView to take only as much space as required
-                physics: NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
+                shrinkWrap:
+                    true, // Allows ListView to take only as much space as required
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
                 padding: const EdgeInsets.all(16.0),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
@@ -428,50 +430,43 @@ class ProcessingOrders extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column( 
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text.rich(
-                                    TextSpan(
-                                      text: "Total Amount: ",
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: "Rp ${order.totalPrice}",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text.rich(
+                                      TextSpan(
+                                        text: "Total Amount: ",
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: "Rp ${order.totalPrice}",
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // "Seller packages the goods",
-                                    // "In delivery",
-                                    order.detailStatus,
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange[600],
+                                    Text(
+                                      // "Seller packages the goods",
+                                      // "In delivery",
+                                      order.detailStatus,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.orange[600],
+                                      ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              
+                                  ]),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Detailorders(order: order),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: const Color.fromARGB(255, 108, 108, 108)),
+                                    side: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 108, 108, 108)),
                                   ),
                                   child: const Text("Details"),
                                 ),
@@ -487,7 +482,6 @@ class ProcessingOrders extends StatelessWidget {
             ],
           ),
         ),
-       
       ),
     );
   }
@@ -495,21 +489,22 @@ class ProcessingOrders extends StatelessWidget {
 
 class CancelledOrders extends StatelessWidget {
   final List<Order> orders;
-
   const CancelledOrders({super.key, required this.orders});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
-      body: SafeArea(     
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: 70),
           child: Column(
             children: [
               ListView.builder(
-                shrinkWrap: true, // Allows ListView to take only as much space as required
-                physics: NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
+                shrinkWrap:
+                    true, // Allows ListView to take only as much space as required
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevent ListView from scrolling independently
                 padding: const EdgeInsets.all(16.0),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
@@ -548,7 +543,7 @@ class CancelledOrders extends StatelessWidget {
                           const SizedBox(height: 8.0),
                           // nama toko
                           Text(
-                            "From: ${order.shop}",  // sementara belum dinamis
+                            "From: ${order.shop}", // sementara belum dinamis
                             style: TextStyle(fontSize: 14.0),
                           ),
                           Text(
@@ -559,48 +554,41 @@ class CancelledOrders extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column( 
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text.rich(
-                                    TextSpan(
-                                      text: "Total Amount: ",
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: "Rp ${order.totalPrice}",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text.rich(
+                                      TextSpan(
+                                        text: "Total Amount: ",
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: "Rp ${order.totalPrice}",
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    order.detailStatus,
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red[600],
+                                    Text(
+                                      order.detailStatus,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red[600],
+                                      ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              
+                                  ]),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Detailorders(order: order),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: const Color.fromARGB(255, 108, 108, 108)),
+                                    side: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 108, 108, 108)),
                                   ),
                                   child: const Text("Details"),
                                 ),
@@ -616,17 +604,15 @@ class CancelledOrders extends StatelessWidget {
             ],
           ),
         ),
-       
       ),
     );
   }
 }
 
-class toMyOrdersPage extends StatelessWidget{
-  const toMyOrdersPage({super.key});
-
+class toManageOrdersPage extends StatelessWidget {
+  const toManageOrdersPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return Bottombar(initialIndex: 2);  
+    return Bottombar(initialIndex: 2);
   }
 }

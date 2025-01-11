@@ -6,11 +6,11 @@ class TextbuttonNavigation extends StatefulWidget {
   final TextStyle textStyle;
 
   const TextbuttonNavigation({
-    Key? key,
+    super.key,
     required this.text,
     required this.route,
     required this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   _TextbuttonNavigationState createState() => _TextbuttonNavigationState();

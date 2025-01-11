@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {
+  const TestPage({super.key});
+
   @override
   State<TestPage> createState() => _TestPageState();
 }
@@ -38,7 +40,7 @@ class _TestPageState extends State<TestPage> {
           Positioned(
             bottom: 0,
             left: 0,
-            child: Container(
+            child: SizedBox(
               width: size.width,
               height: 80,
               child: Stack(
@@ -50,16 +52,16 @@ class _TestPageState extends State<TestPage> {
                   Center(
                     heightFactor: 0.8,
                     child: FloatingActionButton(
-                      backgroundColor: currentIndex == 4 ? Colors.orange : Colors.white, // Change color based on currentIndex
-                      child: Icon(Icons.search_rounded),
+                      backgroundColor: currentIndex == 4 ? Colors.orange : Colors.white,
                       elevation: 0.1,
                       shape: CircleBorder(),
                       onPressed: () {
                         setBottomBarIndex(4); // Set the index for the Search page
-                      },
+                      }, // Change color based on currentIndex
+                      child: Icon(Icons.search_rounded),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width,
                     height: 80,
                     child: Row(

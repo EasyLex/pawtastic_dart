@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/Product-Page/product_details.dart';
 
 class MostPopular extends StatefulWidget {
   const MostPopular({super.key});

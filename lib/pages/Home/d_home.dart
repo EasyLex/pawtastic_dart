@@ -124,7 +124,7 @@ class _DHomeState extends State<DHome> {
 
   @override
   Widget build(BuildContext context) {
-    final FocusNode _focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
@@ -387,7 +387,7 @@ class _DHomeState extends State<DHome> {
 class CategoryTile extends StatelessWidget {
   final String image, name;
   final List<Map<String, dynamic>> products;
-  CategoryTile({required this.image, required this.name, required this.products});
+  const CategoryTile({super.key, required this.image, required this.name, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -424,6 +424,8 @@ class CategoryTile extends StatelessWidget {
 }
 
 class toHomePage extends StatelessWidget {
+  const toHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Bottombar(initialIndex: 0);

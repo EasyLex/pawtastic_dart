@@ -4,14 +4,14 @@ import 'package:untitled/widget/textButton.dart';
 import 'package:untitled/widget/textField1.dart';
 import 'package:untitled/firebaseCRUD/createUser.dart';
 
-class Signuppage extends StatefulWidget {
-  const Signuppage({super.key});
+class SignuppageSeller extends StatefulWidget {
+  const SignuppageSeller({super.key});
 
   @override
-  State<Signuppage> createState() => _SignuppageState();
+  State<SignuppageSeller> createState() => _SignuppageSellerState();
 }
 
-class _SignuppageState extends State<Signuppage> {
+class _SignuppageSellerState extends State<SignuppageSeller> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
@@ -19,31 +19,27 @@ class _SignuppageState extends State<Signuppage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   final CreateUser _createUser = CreateUser();
 
   Future<void> _submitData() async {
-    // Validate password and confirm password
-    if (_passwordController.text != _confirmPasswordController.text) {
-      _showSnackBar("Passwords do not match!",  Colors.red);
-      return;
-    }
-
     // Attempt to create user through CreateUser service
     final String? result = await _createUser.createUser(
       username: _usernameController.text.trim(),
       email: _emailController.text.trim(),
       address: _addressController.text.trim(),
       password: _passwordController.text.trim(),
+      // description: _descriptionController.text.trim(),
     );
 
     if (result != null) {
       // Show error message if user creation failed
-      _showSnackBar(result,  Colors.red);
+      _showSnackBar(result, Colors.red);
     } else {
       // Show success message and navigate to home if successful
-      _showSnackBar("Account created successfully!", const Color.fromRGBO(0, 128, 0, 1.0));
+      _showSnackBar("Account created successfully!",
+          const Color.fromRGBO(0, 128, 0, 1.0));
       Navigator.pushNamed(context, '/home');
     }
   }
@@ -54,7 +50,9 @@ class _SignuppageState extends State<Signuppage> {
         content: Row(
           children: [
             Icon(
-              backgroundColor == Colors.red ? Icons.error_outline : Icons.check_circle_outline,
+              backgroundColor == Colors.red
+                  ? Icons.error_outline
+                  : Icons.check_circle_outline,
               color: Colors.white,
             ),
             const SizedBox(width: 10),
@@ -88,7 +86,8 @@ class _SignuppageState extends State<Signuppage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               margin: const EdgeInsets.only(top: 50),
               alignment: Alignment.topCenter,
@@ -97,7 +96,7 @@ class _SignuppageState extends State<Signuppage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    "Create\nAccount!",
+                    "Build a\nPaw Shop Business",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
@@ -108,20 +107,6 @@ class _SignuppageState extends State<Signuppage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  
-                  // Username
-                  SizedBox(
-                    width: 350,
-                    child: TextFormField(
-                      controller: _usernameController,
-                      decoration: Textfield1(
-                        hintText: 'John Doe',
-                        prefixIcon: Icons.person,
-                      ).decoration,
-                      keyboardType: TextInputType.name,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
 
                   // Email
                   SizedBox(
@@ -129,24 +114,10 @@ class _SignuppageState extends State<Signuppage> {
                     child: TextFormField(
                       controller: _emailController,
                       decoration: Textfield1(
-                        hintText: 'johndoe@gmail.com',
+                        hintText: 'Shop Email',
                         prefixIcon: Icons.email_rounded,
                       ).decoration,
                       keyboardType: TextInputType.emailAddress,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Address
-                  SizedBox(
-                    width: 350,
-                    child: TextFormField(
-                      controller: _addressController,
-                      decoration: Textfield1(
-                        hintText: 'Jl. Lorem no 1, Malang, Jawa Timur, Indonesia, 65146',
-                        prefixIcon: Icons.house_rounded,
-                      ).decoration,
-                      keyboardType: TextInputType.streetAddress,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -161,44 +132,61 @@ class _SignuppageState extends State<Signuppage> {
                         hintText: 'Password',
                         prefixIcon: Icons.lock,
                       ).decoration.copyWith(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
 
-                  // Confirm Password
+                  // Shop name
                   SizedBox(
                     width: 350,
                     child: TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: !_isConfirmPasswordVisible,
+                      controller: _usernameController,
                       decoration: Textfield1(
-                        hintText: 'Confirm Password',
-                        prefixIcon: Icons.lock,
-                      ).decoration.copyWith(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isConfirmPasswordVisible ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
+                        hintText: 'Shop Name',
+                        prefixIcon: Icons.person,
+                      ).decoration,
+                      keyboardType: TextInputType.name,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Address
+                  SizedBox(
+                    width: 350,
+                    child: TextFormField(
+                      controller: _addressController,
+                      decoration: Textfield1(
+                        hintText: 'Shop Address',
+                        prefixIcon: Icons.house_rounded,
+                      ).decoration,
+                      keyboardType: TextInputType.streetAddress,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Description
+                  SizedBox(
+                    width: 350,
+                    child: TextFormField(
+                      controller: _descriptionController,
+                      decoration: Textfield1(
+                        hintText: 'Shop Description',
+                        prefixIcon: Icons.description_rounded,
+                      ).decoration,
                     ),
                   ),
                   const SizedBox(height: 25),
@@ -211,7 +199,8 @@ class _SignuppageState extends State<Signuppage> {
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          text: "By clicking Create Account, I have\nagreed to our ",
+                          text:
+                              "By clicking Create Account, I have\nagreed to our ",
                           style: const TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color.fromRGBO(87, 87, 87, 1.0),
@@ -228,9 +217,10 @@ class _SignuppageState extends State<Signuppage> {
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.underline,
                               ),
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                // Handle Terms and Conditions tap
-                              },
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // Handle Terms and Conditions tap
+                                },
                             ),
                             const TextSpan(
                               text: " and\nhave read our ",
@@ -250,9 +240,10 @@ class _SignuppageState extends State<Signuppage> {
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.underline,
                               ),
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                // Handle Privacy Statement tap
-                              },
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // Handle Privacy Statement tap
+                                },
                             ),
                           ],
                         ),
@@ -272,11 +263,14 @@ class _SignuppageState extends State<Signuppage> {
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                       ),
-                      onPressed: () async {
-                        await _submitData(); // Call the submit function
+                      onPressed: ()
+                          //async
+                          {
+                        // await _submitData(); // Call the submit function
+                        Navigator.pushNamed(context, '/home-seller');
                       },
                       child: const Text(
-                        "Create Account",
+                        "Create Shop",
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
@@ -292,7 +286,7 @@ class _SignuppageState extends State<Signuppage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Text(
-                            'I already have an account,',
+                            'I already have Paw Shop,',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color.fromRGBO(87, 87, 87, 1.0),
@@ -302,7 +296,7 @@ class _SignuppageState extends State<Signuppage> {
                           ),
                           TextbuttonNavigation(
                             text: 'Login',
-                            route: '/login',
+                            route: '/login-seller',
                             textStyle: const TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color.fromRGBO(252, 147, 3, 1.0),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:untitled/pages/bottomBar.dart';
 
 class Settings extends StatelessWidget {
+  const Settings({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +11,7 @@ class Settings extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             // Profile Section
             Column(
               children: [
@@ -54,11 +56,12 @@ class Settings extends StatelessWidget {
                     icon: Icons.store,
                     text: 'Paw Shop',
                     onTap: () {
-                      // Handle navigation
+                      Navigator.pushNamed(
+                          context, '/shop'); // Handle navigation
                     },
                   ),
                   MenuItem(
-                    icon: Icons.share,
+                    icon: Icons.info_rounded,
                     text: 'About Us',
                     onTap: () {
                       // Handle navigation
@@ -69,10 +72,10 @@ class Settings extends StatelessWidget {
             ),
             // Sign Out
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 220),
+              padding: const EdgeInsets.symmetric(vertical: 150),
               child: TextButton(
                 onPressed: () {
-                  // Handle sign out
+                  Navigator.pushNamed(context, '/'); // Handle sign out
                 },
                 child: Text(
                   'Sign Out',
@@ -96,6 +99,7 @@ class MenuItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const MenuItem({
+    super.key,
     required this.icon,
     required this.text,
     required this.onTap,
@@ -131,6 +135,8 @@ class MenuItem extends StatelessWidget {
 }
 
 class toSettingsPage extends StatelessWidget {
+  const toSettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Bottombar(initialIndex: 3);
