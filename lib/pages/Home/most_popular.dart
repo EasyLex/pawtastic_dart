@@ -70,6 +70,7 @@ class _MostPopularState extends State<MostPopular> {
 
                 var products = snapshot.data!.docs.map((doc) {
                   return {
+                    "productId": doc.id,
                     "productName": doc['product_name'],
                     "productImage": doc['image_url'],
                     "description": doc['description'],

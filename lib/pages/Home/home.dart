@@ -188,6 +188,7 @@ class _HomeState extends State<Home> {
                       // Mapping product data from Firestore
                       var products = snapshot.data!.docs.map((doc) {
                         return {
+                          "productId": doc.id,
                           "productName": doc['product_name'],
                           "productImage": doc['image_url'],
                           "description": doc['description'],
@@ -271,6 +272,7 @@ class _HomeState extends State<Home> {
 
                         var products = snapshot.data!.docs.map((doc) {
                           return {
+                            "productId": doc.id,
                             "productName": doc['product_name'],
                             "productImage": doc['image_url'],
                             "description": doc['description'],

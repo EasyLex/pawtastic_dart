@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -243,7 +244,10 @@ class ProductDetails extends StatelessWidget {
       // Add to Cart button always at the bottom
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: AddToCartWithQuantity(product: product), // Adding the quantity control here
+        child: AddToCartWithQuantity(
+          product: product,
+          seller: seller,
+        ), // Adding the quantity control here
       ),
     );
   }
@@ -251,10 +255,12 @@ class ProductDetails extends StatelessWidget {
 
 class AddToCartWithQuantity extends StatefulWidget {
   final Map<String, dynamic> product;
+  final Map<String, dynamic> seller;
 
   const AddToCartWithQuantity({
     Key? key,
     required this.product,
+    required this.seller
   }) : super(key: key);
 
   @override
@@ -262,7 +268,7 @@ class AddToCartWithQuantity extends StatefulWidget {
 }
 
 class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
-  int quantity = 0;  // Default quantity is 1
+  int quantity = 0;  // Default quantity is 0
 
   // Function to increase quantity
   void increaseQuantity() {
@@ -272,24 +278,77 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
         quantity++;
       });
     }
-    // else {
-    //   // Optionally show an alert when stock is exceeded
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text('Cannot exceed stock of ${widget.product["stock"]}'),
-    //     ),
-    //   );
-    // }
-
   }
 
-  // Function to decrease quantity, ensuring it doesn't go below 1
+  // Function to decrease quantity, ensuring it doesn't go below 0
   void decreaseQuantity() {
     setState(() {
       if (quantity > 0) {
         quantity--;
       }
     });
+  }
+
+  // Function to add the product to the cart in Firestore
+  Future<void> addToCart() async {
+    // Get the current user's UID
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // If the user is not logged in, show an error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please log in to add to cart')),
+      );
+      return;
+    }
+
+    // Get the user's UID
+    String userId = user.uid;
+
+    // Get the Firestore instance
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Reference to the user's cart subcollection
+    CollectionReference cartRef = firestore.collection('users').doc(userId).collection('cart');
+
+    // Ensure the price is a double and quantity is an int (casting as needed)
+    double price = (widget.product['price'] is int)
+        ? (widget.product['price'] as int).toDouble()
+        : widget.product['price'] as double;
+
+    // Check if the product already exists in the cart
+    QuerySnapshot existingCart = await cartRef.where('productId', isEqualTo: widget.product['productId']).get();
+
+    if (existingCart.docs.isEmpty) {
+      // If the product is not in the cart, add it
+      await cartRef.add({
+        'productId': widget.product['productId'],
+        'productName': widget.product["productName"],
+        'productImage': widget.product["productImage"],
+        'price': price,
+        'quantity': quantity,
+        'sellerId': widget.product["sellerId"],
+        // 'sellerName': widget.product["sellerName"], // Seller's name
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      // Show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Added to cart successfully!')),
+      );
+    } else {
+      // If the product is already in the cart, update the quantity
+      String cartItemId = existingCart.docs.first.id;
+
+      // Update the quantity in the cart
+      await cartRef.doc(cartItemId).update({
+        'quantity': FieldValue.increment(quantity) // Increment by selected quantity
+      });
+
+      // Show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Quantity updated in cart!')),
+      );
+    }
   }
 
   @override
@@ -318,7 +377,6 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
           onPressed: increaseQuantity,
           color: Colors.orange,
         ),
-        // const Spacer(),
         // Add to Cart button
         Container(
           width: 80,  // Set width of the button
@@ -335,7 +393,9 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
             ),
             onPressed: () {
               // Handle Add to Cart action
-              print("Adding $quantity ${widget.product['productName']} to cart");
+              if (quantity > 0) {
+                addToCart();  // Add the item to the cart
+              }
             },
           ),
         ),

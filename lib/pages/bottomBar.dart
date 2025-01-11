@@ -42,7 +42,7 @@ class _BottombarState extends State<Bottombar> {
             index: currentIndex, // Change this based on the selected index
             children: [
               Home(),
-              Cart(),
+              CartPage(),
               MyOrders(),
               Settings(),
               Search(),
