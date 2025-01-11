@@ -169,6 +169,7 @@ class _CartDetailPageState extends State<CartDetailPage> {
               },
               child: const Text('Proceed to Checkout'),
               style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
                 backgroundColor: Colors.orange,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),

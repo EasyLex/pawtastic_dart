@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/pages/Product-Page/product_details.dart';
 import 'package:untitled/pages/bottomBar.dart';
@@ -29,9 +29,25 @@ class _HomeState extends State<Home> {
     "Fish"
   ];
 
+  // Fetch user name from Firestore
+  Future<String> getUserName() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (userDoc.exists) {
+        String username = userDoc['username']; // Assuming the username field is "username"
+        return username;
+      }
+    }
+    return "User"; // Default value if the username is not found
+  }
+
   @override
   Widget build(BuildContext context) {
-    final FocusNode focusNode = FocusNode();
+    final FocusNode _focusNode = FocusNode();
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 250),
@@ -52,39 +68,57 @@ class _HomeState extends State<Home> {
                       Row(
                         children: [
                           SizedBox(width: 10),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.asset(
-                              "images/photoprofile.jpg",
-                              height: 48,
-                              width: 48,
-                              fit: BoxFit.cover,
-                            ),
+                          
+                          // ClipRRect(
+                          //   borderRadius: BorderRadius.circular(50),
+                          //   child: Image.asset(
+                          //     "images/photoprofile.jpg",
+                          //     height: 48,
+                          //     width: 48,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          // ),
+                          Icon(
+                            Icons.person, 
+                            size: 48, 
+                            color: Colors.black 
                           ),
                           SizedBox(width: 12.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text.rich(
-                                TextSpan(
-                                  text: "Hello\n",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.3,
-                                  ),
-                                  children: <TextSpan>[ 
+                              FutureBuilder<String>(
+                                future: getUserName(), // Fetch the user's name
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Text("Hello...");
+                                  }
+                                  if (snapshot.hasError) {
+                                    return Text("Error loading name");
+                                  }
+
+                                  return Text.rich(
                                     TextSpan(
-                                      text: "Daniell Guntoro!",
+                                      text: "Hello\n",
                                       style: TextStyle(
                                         fontSize: 18,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w400,
                                         height: 1.3,
                                       ),
-                                    )
-                                  ],
-                                ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: snapshot.data ?? "User",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.3,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -156,6 +190,7 @@ class _HomeState extends State<Home> {
                         return {
                           "productId": doc.id,
                           "productName": doc['product_name'],
+                          "productImage": doc['image_url'],
                           "description": doc['description'],
                           "category": doc['categories'],
                           "price": doc['price'],
@@ -190,7 +225,6 @@ class _HomeState extends State<Home> {
                       );
                     },
                   ),
-
 
                   SizedBox(height: 30.0),
 
@@ -315,7 +349,6 @@ class _HomeState extends State<Home> {
                                             borderRadius: BorderRadius.circular(10),
                                             child: Image.asset(
                                               product["productImage"],
-                                              // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                                               height: 180,
                                               fit: BoxFit.cover,
                                             ),
@@ -383,7 +416,7 @@ class CategoryTile extends StatelessWidget {
   final String image, name;
   final List<Map<String, dynamic>> filteredProducts;
 
-  const CategoryTile({super.key, 
+  CategoryTile({
     required this.image, 
     required this.name, 
     required this.filteredProducts,
@@ -430,8 +463,6 @@ class CategoryTile extends StatelessWidget {
 
 
 class toHomePage extends StatelessWidget {
-  const toHomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Bottombar(initialIndex: 0);

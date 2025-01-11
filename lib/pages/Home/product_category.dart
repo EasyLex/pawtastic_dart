@@ -8,10 +8,10 @@ class ProductCategory extends StatelessWidget {
   final List<Map<String, dynamic>> products;
 
   const ProductCategory({
-    super.key,
+    Key? key,
     required this.categoryName,
     required this.products,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -237,8 +237,8 @@ class ProductCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                // product["productImage"],
-                "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                product["productImage"],
+                // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                 height: 180,
                 fit: BoxFit.cover,
               ),
@@ -286,5 +286,4 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-
 

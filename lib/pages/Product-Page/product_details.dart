@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled/pages/Product-Page/seller_product_list.dart';
 
 class ProductDetails extends StatelessWidget {
   final Map<String, dynamic> product;
@@ -169,16 +170,15 @@ class ProductDetails extends StatelessWidget {
                   // Seller Info (in one row with right arrow)
                   TextButton(
                     onPressed: () {
-                      // Navigate to SellerProductList by filtering based on seller's name
-                      final sellerName = product["sellerName"];
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SellerProductList(
-                      //       sellerName: sellerName, 
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SellerProductList(
+                            seller: seller,
+                            sellerId: product["sellerId"], 
+                          )
+                        ),
+                      );
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -206,12 +206,17 @@ class ProductDetails extends StatelessWidget {
                                     fontWeight: FontWeight.bold, 
                                   ),
                                 ),
-                                Text(
-                                  "${seller["shop_address"]}",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                  )  
+                                Container(
+                                  width: 350.0,  // Specify a maximum width for the text container
+                                  child: Text(
+                                    "${seller["shop_address"]}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,  // Truncates with ellipsis if overflow
+                                    maxLines: 2,  // Keep the text on 1 line
+                                  ),
                                 ),
                               ],
                             ),
