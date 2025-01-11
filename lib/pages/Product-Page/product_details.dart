@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -42,8 +42,8 @@ class ProductDetails extends StatelessWidget {
               // Product Image
               Center(
                 child: Image.asset(
-                  // product["productImage"],
-                  "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                  product["productImage"],
+                  // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                   height: 300,
                   fit: BoxFit.cover,
                 ),
@@ -384,6 +384,7 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
             icon: const Icon(
               Icons.shopping_cart,
               color: Colors.white,
+              size: 40,  // Set icon size for the button
             ),
             onPressed: () {
               // Handle Add to Cart action
@@ -393,8 +394,7 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
             },
           ),
         ),
-      ]
-    
+      ],
     );
   }
 }

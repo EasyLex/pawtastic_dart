@@ -240,7 +240,7 @@ class _HomeState extends State<Home> {
                           return {
                             "productId": doc.id,
                             "productName": doc['product_name'],
-                            // "productImage": doc['image_url'],
+                            "productImage": doc['image_url'],
                             "description": doc['description'],
                             "category": doc['categories'],
                             "price": doc['price'],
@@ -314,8 +314,8 @@ class _HomeState extends State<Home> {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(10),
                                             child: Image.asset(
-                                              // child: Image.network(
-                                              "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
+                                              product["productImage"],
+                                              // "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                                               height: 180,
                                               fit: BoxFit.cover,
                                             ),
