@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled/pages/Cart_n_Checkoute/cart.dart';
 import 'package:untitled/pages/cart.dart';
 import 'package:untitled/pages/Home/home.dart';
 import 'package:untitled/pages/Orders/myOrders.dart';
