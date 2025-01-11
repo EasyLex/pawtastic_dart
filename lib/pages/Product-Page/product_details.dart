@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/pages/Home/product_category.dart';
-import 'package:untitled/pages/Product-Page/seller_product_list.dart';
 
 class ProductDetails extends StatelessWidget {
   final Map<String, dynamic> product;
@@ -44,7 +42,8 @@ class ProductDetails extends StatelessWidget {
               // Product Image
               Center(
                 child: Image.asset(
-                  product["productImage"],
+                  // product["productImage"],
+                  "images/C-One_CONDITIONING_SHAMPOO_for_Pet_100ml.jpg",
                   height: 300,
                   fit: BoxFit.cover,
                 ),
@@ -112,7 +111,7 @@ class ProductDetails extends StatelessWidget {
                       categories.length,
                       (index) => GestureDetector(
                         onTap: () {
-                          // Handle category filter action
+                          // Handle category click if needed
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -170,15 +169,16 @@ class ProductDetails extends StatelessWidget {
                   // Seller Info (in one row with right arrow)
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SellerProductList(
-                            seller: seller,
-                            sellerId: product["sellerId"], 
-                          )
-                        ),
-                      );
+                      // Navigate to SellerProductList by filtering based on seller's name
+                      final sellerName = product["sellerName"];
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SellerProductList(
+                      //       sellerName: sellerName, 
+                      //     ),
+                      //   ),
+                      // );
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -206,17 +206,12 @@ class ProductDetails extends StatelessWidget {
                                     fontWeight: FontWeight.bold, 
                                   ),
                                 ),
-                                Container(
-                                  width: 350.0,  // Specify a maximum width for the text container
-                                  child: Text(
-                                    "${seller["shop_address"]}",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,  // Truncates with ellipsis if overflow
-                                    maxLines: 2,  // Keep the text on 1 line
-                                  ),
+                                Text(
+                                  "${seller["shop_address"]}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                  )  
                                 ),
                               ],
                             ),
@@ -389,7 +384,6 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
             icon: const Icon(
               Icons.shopping_cart,
               color: Colors.white,
-              size: 40,  // Set icon size for the button
             ),
             onPressed: () {
               // Handle Add to Cart action
@@ -399,7 +393,8 @@ class _AddToCartWithQuantityState extends State<AddToCartWithQuantity> {
             },
           ),
         ),
-      ],
+      ]
+    
     );
   }
 }

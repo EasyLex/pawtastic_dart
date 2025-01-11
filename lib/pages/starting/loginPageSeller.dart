@@ -3,14 +3,14 @@ import 'package:untitled/widget/textButton.dart';
 import 'package:untitled/widget/textField1.dart';
 import 'package:untitled/firebaseCRUD/loginUser.dart'; // Updated import to reflect the new name
 
-class Loginpage extends StatefulWidget {
-  const Loginpage({super.key});
+class LoginpageSeller extends StatefulWidget {
+  const LoginpageSeller({super.key});
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<LoginpageSeller> createState() => _LoginpageSellerState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _LoginpageSellerState extends State<LoginpageSeller> {
   bool _isPasswordVisible = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginpageState extends State<Loginpage> {
 
     // if (loginResult == null) {
     Navigator.pushNamed(
-        context, '/home'); // Navigate to home page if successful
+        context, '/home-seller'); // Navigate to home page if successful
     // } else {
     //  _showSnackBar(
     //       loginResult, Colors.red); // Show error message if login failed
@@ -83,7 +83,7 @@ class _LoginpageState extends State<Loginpage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Welcome\nBack!",
+                    "Pawsitively\nProfitable",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
@@ -101,7 +101,7 @@ class _LoginpageState extends State<Loginpage> {
                     child: TextFormField(
                       controller: _emailController,
                       decoration: Textfield1(
-                        hintText: 'Pawtastic Email',
+                        hintText: 'Shop Email',
                         prefixIcon: Icons.email_rounded,
                       ).decoration,
                       keyboardType: TextInputType.emailAddress,
@@ -139,22 +139,22 @@ class _LoginpageState extends State<Loginpage> {
                   const SizedBox(height: 5),
 
                   // Forgot password link
-                  SizedBox(
-                    width: 340,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: TextbuttonNavigation(
-                        text: 'Forgot your password?',
-                        route: '/forgot-password',
-                        textStyle: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Color.fromRGBO(252, 147, 3, 1.0),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 340,
+                  //   child: Align(
+                  //     alignment: Alignment.centerRight,
+                  //     child: TextbuttonNavigation(
+                  //       text: 'Forgot your password?',
+                  //       route: '/forgot-password',
+                  //       textStyle: TextStyle(
+                  //         fontFamily: 'Montserrat',
+                  //         color: Color.fromRGBO(252, 147, 3, 1.0),
+                  //         fontSize: 14.0,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
                   const SizedBox(height: 50),
 
@@ -190,7 +190,7 @@ class _LoginpageState extends State<Loginpage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Or, ',
+                            'Have not registered Paw Shop yet? ',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color.fromRGBO(87, 87, 87, 1.0),
@@ -199,7 +199,7 @@ class _LoginpageState extends State<Loginpage> {
                             ),
                           ),
                           TextbuttonNavigation(
-                            text: 'Create an Account',
+                            text: 'Register!',
                             route: '/signup',
                             textStyle: TextStyle(
                               fontFamily: 'Montserrat',

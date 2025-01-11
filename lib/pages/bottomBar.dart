@@ -53,7 +53,7 @@ class _BottombarState extends State<Bottombar> {
           Positioned(
             bottom: 0,
             left: 0,
-            child: Container(
+            child: SizedBox(
               width: size.width,
               height: 70,
               child: Stack(
@@ -85,7 +85,7 @@ class _BottombarState extends State<Bottombar> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width,
                     height: 70,
                     child: Row(
