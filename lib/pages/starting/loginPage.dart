@@ -17,23 +17,23 @@ class _LoginpageState extends State<Loginpage> {
 
   // Function to handle login
   Future<void> _login() async {
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
+    // String email = _emailController.text.trim();
+    // String password = _passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
-      _showSnackBar("Please enter both email and password.", Colors.red);
-      return;
-    }
+    // if (email.isEmpty || password.isEmpty) {
+    //   _showSnackBar("Please enter both email and password.", Colors.red);
+    //   return;
+    // }
 
-    String? loginResult = await LoginUser().login(email, password);
+    // String? loginResult = await LoginUser().login(email, password);
 
-    if (loginResult == null) {
+    // if (loginResult == null) {
     Navigator.pushNamed(
         context, '/home'); // Navigate to home page if successful
-    } else {
-     _showSnackBar(
-          loginResult, Colors.red); // Show error message if login failed
-    }
+    //   } else {
+    //   _showSnackBar(
+    //         loginResult, Colors.red); // Show error message if login failed
+    //   }
   }
 
   // Function to show SnackBar with custom message and color

@@ -64,7 +64,8 @@ class Settings extends StatelessWidget {
                     icon: Icons.info_rounded,
                     text: 'About Us',
                     onTap: () {
-                      // Handle navigation
+                      Navigator.pushNamed(
+                          context, '/aboutus'); // Handle navigation
                     },
                   ),
                 ],
