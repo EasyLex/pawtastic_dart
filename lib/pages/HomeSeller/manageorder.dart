@@ -302,6 +302,21 @@ class CompletedOrders extends StatelessWidget {
                             "Product list:\n${order.shippingAddress}",
                             style: TextStyle(fontSize: 14.0),
                           ),
+                          Text.rich(
+                            TextSpan(
+                              text: "Total Amount: ",
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Rp ${order.totalPrice}",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                           const SizedBox(height: 8.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -310,30 +325,30 @@ class CompletedOrders extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // total belanja
-                                    Text.rich(
-                                      TextSpan(
-                                        text: "Total Amount: ",
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: "Rp ${order.totalPrice}",
-                                            style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                          )
-                                        ],
+                                    OutlinedButton(
+                                      onPressed: () {},
+                                      style: OutlinedButton.styleFrom(
+                                        side: BorderSide(
+                                            color: const Color.fromARGB(
+                                                255, 197, 31, 16)),
+                                      ),
+                                      child: Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          color: const Color.fromARGB(
+                                              255, 197, 31, 16),
+                                        ),
                                       ),
                                     ),
                                     // detailed status
-                                    Text(
-                                      "Delivered ${order.deliveredDate}",
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.green[600],
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   "Delivered ${order.deliveredDate}",
+                                    //   style: TextStyle(
+                                    //     fontSize: 14.0,
+                                    //     fontWeight: FontWeight.normal,
+                                    //     color: Colors.grey,
+                                    //   ),
+                                    // ),
                                   ]),
                               Align(
                                 alignment: Alignment.centerRight,
@@ -342,9 +357,14 @@ class CompletedOrders extends StatelessWidget {
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(
                                         color: const Color.fromARGB(
-                                            255, 108, 108, 108)),
+                                            255, 33, 196, 12)),
                                   ),
-                                  child: const Text("Confirm"),
+                                  child: Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                      color: Colors.green[600],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

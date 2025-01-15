@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/pages/Product-Page/product_details.dart';
 import 'package:untitled/pages/bottomBar.dart';
 import 'package:untitled/pages/Home/product_category.dart';
+import 'package:untitled/pages/settings.dart';
 import 'package:untitled/widget/textButton.dart';
 import 'package:intl/intl.dart';
 
@@ -22,12 +23,7 @@ class _HomeState extends State<Home> {
     "images/fish.jpeg"
   ];
 
-  List categoryName = [
-    "Cats",
-    "Dogs",
-    "Hamster",
-    "Fish"
-  ];
+  List categoryName = ["Cats", "Dogs", "Hamster", "Fish"];
 
   // Fetch user name from Firestore
   Future<String> getUserName() async {
@@ -38,7 +34,8 @@ class _HomeState extends State<Home> {
           .doc(user.uid)
           .get();
       if (userDoc.exists) {
-        String username = userDoc['username']; // Assuming the username field is "username"
+        String username =
+            userDoc['username']; // Assuming the username field is "username"
         return username;
       }
     }
@@ -68,7 +65,7 @@ class _HomeState extends State<Home> {
                       Row(
                         children: [
                           SizedBox(width: 10),
-                          
+
                           // ClipRRect(
                           //   borderRadius: BorderRadius.circular(50),
                           //   child: Image.asset(
@@ -78,10 +75,19 @@ class _HomeState extends State<Home> {
                           //     fit: BoxFit.cover,
                           //   ),
                           // ),
-                          Icon(
-                            Icons.person, 
-                            size: 48, 
-                            color: Colors.black 
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => toSettingsPage()),
+                              );
+                            },
+                            child: Icon(
+                              Icons.person,
+                              size: 48,
+                              color: Colors.black,
+                            ),
                           ),
                           SizedBox(width: 12.0),
                           Column(
@@ -91,7 +97,8 @@ class _HomeState extends State<Home> {
                               FutureBuilder<String>(
                                 future: getUserName(), // Fetch the user's name
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
                                     return Text("Hello...");
                                   }
                                   if (snapshot.hasError) {
@@ -135,7 +142,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 30.0),
-                  
+
                   // Search Bar
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -175,7 +182,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 5.0),
                   // Fetch categories and products from Firestore
                   StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('products').snapshots(),
+                    stream: FirebaseFirestore.instance
+                        .collection('products')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
@@ -212,13 +221,15 @@ class _HomeState extends State<Home> {
 
                             // Filter products by category name
                             final filteredProducts = products.where((product) {
-                              return product['category'] != null && product['category'].contains(nameCategory);
+                              return product['category'] != null &&
+                                  product['category'].contains(nameCategory);
                             }).toList();
 
                             return CategoryTile(
-                              image: categories[index], 
+                              image: categories[index],
                               name: nameCategory,
-                              filteredProducts: filteredProducts, // Pass filtered products here
+                              filteredProducts:
+                                  filteredProducts, // Pass filtered products here
                             );
                           },
                         ),
@@ -251,7 +262,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const SizedBox(height: 10.0),
-                  
+
                   // Product Grid
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -262,7 +273,8 @@ class _HomeState extends State<Home> {
                           .limit(6)
                           .snapshots(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator());
                         }
 
@@ -288,7 +300,8 @@ class _HomeState extends State<Home> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: 6, // Display 6 products only on home page
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
@@ -301,19 +314,25 @@ class _HomeState extends State<Home> {
                             return FutureBuilder<DocumentSnapshot>(
                               future: FirebaseFirestore.instance
                                   .collection('seller')
-                                  .doc(product['sellerId']) // Use sellerId to get seller data
+                                  .doc(product[
+                                      'sellerId']) // Use sellerId to get seller data
                                   .get(),
                               builder: (context, sellerSnapshot) {
-                                if (sellerSnapshot.connectionState == ConnectionState.waiting) {
-                                  return Center(child: CircularProgressIndicator());
+                                if (sellerSnapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
                                 }
 
-                                if (!sellerSnapshot.hasData || !sellerSnapshot.data!.exists) {
-                                  return Center(child: Text("Seller not found"));
+                                if (!sellerSnapshot.hasData ||
+                                    !sellerSnapshot.data!.exists) {
+                                  return Center(
+                                      child: Text("Seller not found"));
                                 }
 
                                 // Correct: Accessing seller data directly
-                                var seller = sellerSnapshot.data!.data() as Map<String, dynamic>;
+                                var seller = sellerSnapshot.data!.data()
+                                    as Map<String, dynamic>;
 
                                 return GestureDetector(
                                   onTap: () {
@@ -341,12 +360,15 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Center(
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             child: Image.asset(
                                               product["productImage"],
                                               height: 180,
@@ -356,9 +378,11 @@ class _HomeState extends State<Home> {
                                         ),
                                         const SizedBox(height: 8.0),
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 product["productName"],
@@ -379,7 +403,7 @@ class _HomeState extends State<Home> {
                                               ),
                                               SizedBox(height: 3.0),
                                               Text(
-                                                '${seller["shop_name"]}',  // Display the seller name here
+                                                '${seller["shop_name"]}', // Display the seller name here
                                                 style: const TextStyle(
                                                   fontSize: 13.0,
                                                   fontWeight: FontWeight.w500,
@@ -417,8 +441,8 @@ class CategoryTile extends StatelessWidget {
   final List<Map<String, dynamic>> filteredProducts;
 
   CategoryTile({
-    required this.image, 
-    required this.name, 
+    required this.image,
+    required this.name,
     required this.filteredProducts,
   });
 
@@ -430,7 +454,7 @@ class CategoryTile extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ProductCategory(
-              categoryName: name, 
+              categoryName: name,
               products: filteredProducts,
             ),
           ),
@@ -460,7 +484,6 @@ class CategoryTile extends StatelessWidget {
     );
   }
 }
-
 
 class toHomePage extends StatelessWidget {
   @override
