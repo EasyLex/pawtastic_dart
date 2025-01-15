@@ -52,7 +52,8 @@ class HomeSeller extends StatelessWidget {
               icon: Icons.inventory,
               label: "Manage Products",
               onTap: () {
-                // Navigate to Manage Products Page
+                Navigator.pushNamed(context,
+                    '/manageproduct'); // Navigate to Manage Products Page
               },
             ),
             const SizedBox(height: 16),

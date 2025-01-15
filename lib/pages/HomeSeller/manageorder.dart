@@ -53,8 +53,8 @@ class _ManageOrdersState extends State<ManageOrders>
     ),
     Order(
       orderId: '1947035',
-      shop: 'Rumah hewan',
-      shippingAddress: 'Jalan Raya, Kota Malang',
+      shop: 'IW3475453456',
+      shippingAddress: 'Dog Food Pedigree x1\nHamsfood x1',
       totalPrice: 50000,
       orderDate: '06-11-2024',
       paymentMethod: 'Debit Card',
@@ -64,8 +64,8 @@ class _ManageOrdersState extends State<ManageOrders>
     ),
     Order(
       orderId: '1947036',
-      shop: 'Pakan hewan Malang',
-      shippingAddress: 'Jalan Merdeka, Kota Malang',
+      shop: 'IW3475453457',
+      shippingAddress: 'Suplemen Kucing x1',
       totalPrice: 30000,
       orderDate: '07-11-2024',
       paymentMethod: 'PayPal',
@@ -75,8 +75,8 @@ class _ManageOrdersState extends State<ManageOrders>
     ),
     Order(
       orderId: '1947037',
-      shop: 'Vidibi Pet Shop',
-      shippingAddress: 'Jalan Candi, Kota Malang',
+      shop: 'IW3475453460',
+      shippingAddress: 'Suplemen Hamster x1',
       totalPrice: 25000,
       orderDate: '08-11-2024',
       paymentMethod: 'Cash on Delivery',
@@ -86,8 +86,8 @@ class _ManageOrdersState extends State<ManageOrders>
     ),
     Order(
       orderId: '1947038',
-      shop: 'Koneko Pet Shop',
-      shippingAddress: 'Jalan Batu, Kota Malang',
+      shop: 'IW3475453465',
+      shippingAddress: 'Obat Diare Anjing x1',
       totalPrice: 45000,
       orderDate: '09-11-2024',
       paymentMethod: 'Credit Card',
@@ -129,29 +129,7 @@ class _ManageOrdersState extends State<ManageOrders>
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
         // automaticallyImplyLeading: false, // Remove back button
-        title: Padding(
-          padding: const EdgeInsets.only(top: 10.0), // Add margin for the title
-          child: Column(
-            mainAxisSize: MainAxisSize
-                .min, // Ensure the column only takes as much space as needed
-            children: [
-              // Title Widget
-              const Center(
-                child: Text(
-                  'Manage Orders',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              // Add a SizedBox after the title
-              // const SizedBox(height: 20.0),  // Space between title and the TabBar
-            ],
-          ),
-        ),
+        title: Text('Manage Orders'),
 
         iconTheme: const IconThemeData(color: Colors.black),
         bottom: PreferredSize(
@@ -439,11 +417,11 @@ class ProcessingOrders extends StatelessWidget {
                           ),
                           const SizedBox(height: 8.0),
                           Text(
-                            "From: ${order.shop}",
+                            "Tracking number: ${order.shop}",
                             style: TextStyle(fontSize: 14.0),
                           ),
                           Text(
-                            "Shipping Address: ${order.shippingAddress}",
+                            "Product list:\n${order.shippingAddress}",
                             style: TextStyle(fontSize: 14.0),
                           ),
                           const SizedBox(height: 8.0),

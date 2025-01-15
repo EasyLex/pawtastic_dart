@@ -16,7 +16,10 @@ class _CashierState extends State<Cashier> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.orange),
+          icon: Icon(
+            Icons.arrow_back,
+            color: const Color.fromRGBO(252, 147, 3, 1.0),
+          ),
           onPressed: () {
             Navigator.pushNamed(context, '/home-seller');
           },
@@ -62,8 +65,8 @@ class _CashierState extends State<Cashier> {
                           style: TextStyle(
                               color: showTransactionRecord
                                   ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700),
+                                  : const Color.fromARGB(255, 71, 71, 71),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -81,9 +84,9 @@ class _CashierState extends State<Cashier> {
                           'Add Offline Transaction',
                           style: TextStyle(
                               color: showTransactionRecord
-                                  ? Colors.black
+                                  ? const Color.fromARGB(255, 71, 71, 71)
                                   : Colors.white,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),

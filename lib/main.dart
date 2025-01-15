@@ -5,6 +5,7 @@ import 'package:untitled/pages/Home/most_popular.dart';
 import 'package:untitled/pages/HomeSeller/cashier.dart';
 import 'package:untitled/pages/HomeSeller/home-seller.dart';
 import 'package:untitled/pages/HomeSeller/manageorder.dart';
+import 'package:untitled/pages/HomeSeller/manageproduct.dart';
 import 'package:untitled/pages/aboutus.dart';
 import 'package:untitled/pages/cart.dart';
 import 'package:untitled/pages/Orders/myOrders.dart';
@@ -73,6 +74,8 @@ class MyApp extends StatelessWidget {
         '/manageorder': (context) => ManageOrders(),
         '/cashier': (context) => Cashier(),
         '/aboutus': (context) => AboutUs(),
+        '/manageproduct': (context) => ManageProduct(),
+
       },
       initialRoute: '/',
       // initialRoute: '/home',   // jangan dihapus
