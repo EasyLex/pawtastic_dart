@@ -21,6 +21,7 @@ import 'package:untitled/pages/starting-animation.dart';
 import 'package:untitled/pages/starting-animation-shop.dart';
 import 'package:untitled/pages/starting/signupPageSeller.dart';
 import 'package:untitled/pages/test-page.dart';
+import 'package:untitled/services/geminiService.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
         '/cashier': (context) => Cashier(),
         '/aboutus': (context) => AboutUs(),
         '/manageproduct': (context) => ManageProduct(),
+        '/chatbot': (context) => GeminiService(),
 
       },
       initialRoute: '/',
